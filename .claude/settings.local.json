@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__569640e0-5e16-4065-9506-3b2930f061b4__search_files",
+      "Bash(mkdir -p \"C:/Users/grays/OneDrive/Desktop/Life OS/Coding/.claude\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where python *)",
+      "Bash(where python3 *)",
+      "Bash(where node *)",
+      "Bash(curl -s --max-time 12 \"https://hn.algolia.com/api/v1/search_by_date?query=health&tags=story&hitsPerPage=2\")",
+      "Bash(curl -s --max-time 15 \"https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.cnbc.com%2Fid%2F100003114%2Fdevice%2Frss%2Frss.html\")",
+      "Bash(curl -s --max-time 15 \"https://api.allorigins.win/raw?url=https://www.cnbc.com/id/10001147/device/rss/rss.html\")",
+      "Bash(curl -s --max-time 15 \"https://api.allorigins.win/raw?url=https://rss.nytimes.com/services/xml/rss/nyt/Well.xml\")",
+      "Bash(curl -s --max-time 15 \"https://api.allorigins.win/raw?url=https://www.health.harvard.edu/blog/feed\")",
+      "Bash(curl -s --max-time 12 \"https://hn.algolia.com/api/v1/search_by_date?query=markets&tags=story&hitsPerPage=2\")",
+      "Bash(curl -s --max-time 15 \"https://corsproxy.io/?url=https://rss.nytimes.com/services/xml/rss/nyt/Well.xml\")",
+      "Bash(curl -s --max-time 12 -A \"lifeos/1.0\" \"https://www.reddit.com/r/Fitness/top.json?limit=2&t=week\")",
+      "Bash(curl -s --max-time 15 \"https://api.allorigins.win/get?url=https%3A%2F%2Frss.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FWell.xml\")",
+      "Bash(curl -s --max-time 18 \"https://api.allorigins.win/get?url=https%3A%2F%2Fwww.health.harvard.edu%2Fblog%2Ffeed\")",
+      "Bash(grep -o '<title>[^<]\\\\{5,\\\\}</title>')",
+      "Bash(curl -s --max-time 18 \"https://api.allorigins.win/get?url=https%3A%2F%2Frss.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FWell.xml\")",
+      "Bash(curl -s --max-time 18 \"https://api.allorigins.win/get?url=https%3A%2F%2Ffeeds.content.dowjones.io%2Fpublic%2Frss%2Fmw_topstories\")",
+      "Bash(curl -s --max-time 18 \"https://api.allorigins.win/get?url=https%3A%2F%2Fwww.cnbc.com%2Fid%2F10001147%2Fdevice%2Frss%2Frss.html\")",
+      "Bash(curl -s --max-time 12 'https://hn.algolia.com/api/v1/search?query=__TRACKED_VAR__&tags=story&hitsPerPage=2&numericFilters=points%3E20')",
+      "Bash(echo \"node: $\\(where node 2>/dev/null\\)\")",
+      "Bash(where npm *)",
+      "Bash(echo \"npm: $\\(where npm 2>/dev/null\\)\")",
+      "Bash(where npx *)",
+      "Bash(echo \"npx: $\\(where npx 2>/dev/null\\)\")",
+      "PowerShell($cmds = 'node','npm','npx','python','py','php'; foreach\\($c in $cmds\\){ $p=\\(Get-Command $c -ErrorAction SilentlyContinue\\).Source; if\\($p\\){ \"$c -> $p\" } else { \"$c -> \\(not found\\)\" } })",
+      "PowerShell(git init -q)",
+      "PowerShell(git add -A)",
+      "PowerShell(git commit -q -m \"Life OS dashboard: app-style layout, live feed, habit + goal tracking\")",
+      "PowerShell(\"files:\")"
+    ]
+  }
+}

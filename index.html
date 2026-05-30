@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life OS — Grayson</title>
+  <meta name="theme-color" content="#0b1020">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">LO</div>
+      <div class="brand-text">
+        <span class="brand-title">Life OS</span>
+        <span class="brand-sub">Grayson</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#top" class="nav-link active" data-target="top">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg>
+        <span>Overview</span>
+      </a>
+      <a href="#habits" class="nav-link" data-target="habits">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        <span>Daily Habits</span>
+      </a>
+      <a href="#goals" class="nav-link" data-target="goals">
+        <svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/></svg>
+        <span>Income Goals</span>
+      </a>
+      <a href="#feed" class="nav-link" data-target="feed">
+        <svg viewBox="0 0 24 24" class="ic"><path d="M4 11a9 9 0 019 9M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1.5"/></svg>
+        <span>Daily Feed</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="countdown" id="baby-countdown"></div>
+      <div class="countdown-label">until baby day · Nov 12</div>
+    </div>
+  </aside>
+
+  <div class="sidebar-scrim" id="scrim"></div>
+
+  <!-- ── Main ── -->
+  <div class="content">
+
+    <header class="topbar">
+      <button class="menu-btn" id="menu-btn" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div class="topbar-title">
+        <h1 id="greeting">Welcome</h1>
+        <p id="datetime"></p>
+      </div>
+      <div class="topbar-actions">
+        <span id="last-refresh" class="last-refresh"></span>
+        <button id="refresh-btn" class="btn-refresh">
+          <svg viewBox="0 0 24 24" class="ic-refresh"><path d="M21 12a9 9 0 11-2.64-6.36M21 3v6h-6"/></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero-text">
+          <span class="hero-eyebrow">Today's focus</span>
+          <h2 id="hero-focus">Build the man your family can count on.</h2>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats">
+        <div class="stat">
+          <span class="stat-num" id="stat-habits">0/7</span>
+          <span class="stat-label">Habits today</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat-goals">0/4</span>
+          <span class="stat-label">Income milestones hit</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat-days">—</span>
+          <span class="stat-label">Days until baby</span>
+        </div>
+      </section>
+
+      <!-- Pillars -->
+      <section class="block">
+        <div class="block-head"><h3>Life OS</h3></div>
+        <div class="pillar-grid">
+          <div class="pillar"><span class="pillar-icon">💰</span><span class="pillar-name">Income</span><span class="pillar-focus">Rent the sales skill</span></div>
+          <div class="pillar"><span class="pillar-icon">💪</span><span class="pillar-name">Health</span><span class="pillar-focus">Consistency over intensity</span></div>
+          <div class="pillar"><span class="pillar-icon">📈</span><span class="pillar-name">Markets</span><span class="pillar-focus">Learn &amp; spot opportunity</span></div>
+          <div class="pillar"><span class="pillar-icon">⌨️</span><span class="pillar-name">Code Lab</span><span class="pillar-focus">Ship small, useful tools</span></div>
+          <div class="pillar"><span class="pillar-icon">🌱</span><span class="pillar-name">Growth</span><span class="pillar-focus">Steady &amp; present</span></div>
+        </div>
+      </section>
+
+      <!-- Habits + Goals -->
+      <div class="two-col">
+        <section class="card" id="habits">
+          <div class="card-head">
+            <h3 class="card-title">Daily Habits</h3>
+            <span id="habit-count" class="pill"></span>
+          </div>
+          <div class="progress"><div id="habit-fill" class="progress-fill"></div></div>
+          <div id="habit-list" class="habit-list"></div>
+          <button id="reset-habits" class="btn-ghost">Reset for tomorrow</button>
+        </section>
+
+        <section class="card" id="goals">
+          <div class="card-head">
+            <h3 class="card-title">Income Milestones</h3>
+            <span class="pill pill-muted">tap when hit</span>
+          </div>
+          <div id="milestones" class="milestones"></div>
+        </section>
+      </div>
+
+      <!-- Feed -->
+      <section class="block" id="feed">
+        <div class="block-head feed-head">
+          <h3>Daily Feed</h3>
+          <div class="tabs" id="tabs"></div>
+        </div>
+        <div id="feed-grid" class="feed-grid"></div>
+        <p class="feed-note">Auto-refreshes every 30 minutes · pulled live from the web</p>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

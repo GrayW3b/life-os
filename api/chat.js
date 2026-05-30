@@ -1,18 +1,18 @@
-// Vercel serverless function — proxies chat to Google Gemini.
+// Vercel serverless function — proxies chat to Groq (free tier).
 // The API key lives only here (server-side env var), never in the browser.
-// Set GEMINI_API_KEY in Vercel → Project → Settings → Environment Variables.
+// Set GROQ_API_KEY in Vercel → Project → Settings → Environment Variables.
 
-const MODEL = 'gemini-2.0-flash';
+const MODEL = 'llama-3.3-70b-versatile';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const key = process.env.GEMINI_API_KEY;
+  const key = process.env.GROQ_API_KEY;
   if (!key) {
     return res.status(500).json({
-      error: 'AI is not configured yet. Add GEMINI_API_KEY in your Vercel project settings, then redeploy.',
+      error: 'AI is not configured yet. Add GROQ_API_KEY in your Vercel project settings, then redeploy.',
     });
   }
 
@@ -22,28 +22,34 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'messages array required' });
     }
 
-    // Map our {role:'user'|'model', text} history into Gemini's format.
-    const contents = messages
-      .filter((m) => m && m.text)
-      .map((m) => ({
-        role: m.role === 'model' ? 'model' : 'user',
-        parts: [{ text: String(m.text) }],
-      }));
-
-    const body = {
-      contents,
-      generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
-    };
+    // Build OpenAI-compatible message array for Groq.
+    const groqMessages = [];
     if (system) {
-      body.systemInstruction = { parts: [{ text: String(system) }] };
+      groqMessages.push({ role: 'system', content: String(system) });
     }
+    messages
+      .filter((m) => m && m.text)
+      .forEach((m) => {
+        groqMessages.push({
+          role: m.role === 'model' ? 'assistant' : 'user',
+          content: String(m.text),
+        });
+      });
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${key}`;
-    const r = await fetch(url, {
+    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${key}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: groqMessages,
+        temperature: 0.7,
+        max_tokens: 1024,
+      }),
     });
+
     const data = await r.json();
 
     if (!r.ok) {
@@ -52,11 +58,9 @@ export default async function handler(req, res) {
       });
     }
 
-    const text =
-      data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || '';
+    const text = data?.choices?.[0]?.message?.content || '';
 
     if (!text) {
-      // Most often a safety block or empty candidate.
       return res.status(200).json({
         text: "I couldn't generate a response to that — try rephrasing.",
       });

@@ -39,7 +39,7 @@
       </a>
       <a href="#feed" class="nav-link" data-target="feed">
         <svg viewBox="0 0 24 24" class="ic"><path d="M4 11a9 9 0 019 9M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1.5"/></svg>
-        <span>Daily Feed</span>
+        <span>Daily Brief</span>
       </a>
     </nav>
 
@@ -62,13 +62,6 @@
         <h1 id="greeting">Welcome</h1>
         <p id="datetime"></p>
       </div>
-      <div class="topbar-actions">
-        <span id="last-refresh" class="last-refresh"></span>
-        <button id="refresh-btn" class="btn-refresh">
-          <svg viewBox="0 0 24 24" class="ic-refresh"><path d="M21 12a9 9 0 11-2.64-6.36M21 3v6h-6"/></svg>
-          <span>Refresh</span>
-        </button>
-      </div>
     </header>
 
     <main id="top">
@@ -84,7 +77,7 @@
       <!-- Stats -->
       <section class="stats">
         <div class="stat">
-          <span class="stat-num" id="stat-habits">0/7</span>
+          <span class="stat-num" id="stat-habits">0/0</span>
           <span class="stat-label">Habits today</span>
         </div>
         <div class="stat">
@@ -99,13 +92,13 @@
 
       <!-- Pillars -->
       <section class="block">
-        <div class="block-head"><h3>Life OS</h3></div>
-        <div class="pillar-grid">
-          <div class="pillar"><span class="pillar-icon">💰</span><span class="pillar-name">Income</span><span class="pillar-focus">Rent the sales skill</span></div>
-          <div class="pillar"><span class="pillar-icon">💪</span><span class="pillar-name">Health</span><span class="pillar-focus">Consistency over intensity</span></div>
-          <div class="pillar"><span class="pillar-icon">📈</span><span class="pillar-name">Markets</span><span class="pillar-focus">Learn &amp; spot opportunity</span></div>
-          <div class="pillar"><span class="pillar-icon">⌨️</span><span class="pillar-name">Code Lab</span><span class="pillar-focus">Ship small, useful tools</span></div>
-          <div class="pillar"><span class="pillar-icon">🌱</span><span class="pillar-name">Growth</span><span class="pillar-focus">Steady &amp; present</span></div>
+        <div class="block-head"><h3>Life OS</h3><span class="hint">tap a space to chat with its AI coach</span></div>
+        <div class="pillar-grid" id="pillar-grid">
+          <button class="pillar" data-space="income"><span class="pillar-icon">💰</span><span class="pillar-name">Income Lab</span><span class="pillar-focus">Rent the sales skill</span></button>
+          <button class="pillar" data-space="health"><span class="pillar-icon">💪</span><span class="pillar-name">Health HQ</span><span class="pillar-focus">Consistency over intensity</span></button>
+          <button class="pillar" data-space="markets"><span class="pillar-icon">📈</span><span class="pillar-name">Markets</span><span class="pillar-focus">Learn &amp; spot opportunity</span></button>
+          <button class="pillar" data-space="code"><span class="pillar-icon">⌨️</span><span class="pillar-name">Code Lab</span><span class="pillar-focus">Ship small, useful tools</span></button>
+          <button class="pillar" data-space="growth"><span class="pillar-icon">🌱</span><span class="pillar-name">Growth</span><span class="pillar-focus">Steady &amp; present</span></button>
         </div>
       </section>
 
@@ -118,31 +111,72 @@
           </div>
           <div class="progress"><div id="habit-fill" class="progress-fill"></div></div>
           <div id="habit-list" class="habit-list"></div>
-          <button id="reset-habits" class="btn-ghost">Reset for tomorrow</button>
+          <form id="habit-add" class="habit-add">
+            <input id="habit-input" type="text" placeholder="Add a habit…" maxlength="60" autocomplete="off">
+            <button type="submit" class="btn-add">Add</button>
+          </form>
+          <button id="reset-habits" class="btn-ghost">Reset checkmarks for today</button>
         </section>
 
         <section class="card" id="goals">
           <div class="card-head">
             <h3 class="card-title">Income Milestones</h3>
-            <span class="pill pill-muted">tap when hit</span>
+            <span class="pill pill-muted">tap to mark hit · ✎ to rename</span>
           </div>
           <div id="milestones" class="milestones"></div>
         </section>
       </div>
 
-      <!-- Feed -->
+      <!-- Daily Brief -->
       <section class="block" id="feed">
-        <div class="block-head feed-head">
-          <h3>Daily Feed</h3>
-          <div class="tabs" id="tabs"></div>
+        <div class="block-head"><h3>Daily Brief</h3><span class="hint">AI-generated · cached daily</span></div>
+        <div class="brief-grid">
+          <div class="brief-card" data-brief="business">
+            <div class="brief-head">
+              <div><div class="brief-title">Business &amp; Markets</div><div class="brief-ts" data-ts></div></div>
+              <button class="brief-refresh" data-refresh title="Regenerate"><svg viewBox="0 0 24 24" class="ic-refresh"><path d="M21 12a9 9 0 11-2.64-6.36M21 3v6h-6"/></svg></button>
+            </div>
+            <div class="brief-body" data-body></div>
+          </div>
+          <div class="brief-card" data-brief="health">
+            <div class="brief-head">
+              <div><div class="brief-title">Health &amp; Wellness</div><div class="brief-ts" data-ts></div></div>
+              <button class="brief-refresh" data-refresh title="Regenerate"><svg viewBox="0 0 24 24" class="ic-refresh"><path d="M21 12a9 9 0 11-2.64-6.36M21 3v6h-6"/></svg></button>
+            </div>
+            <div class="brief-body" data-body></div>
+          </div>
         </div>
-        <div id="feed-grid" class="feed-grid"></div>
-        <p class="feed-note">Auto-refreshes every 30 minutes · pulled live from the web</p>
       </section>
 
     </main>
   </div>
 </div>
+
+<!-- ── AI Chat Drawer ── -->
+<div class="drawer-scrim" id="drawer-scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="drawer-id">
+      <span class="drawer-icon" id="drawer-icon"></span>
+      <div>
+        <div class="drawer-name" id="drawer-name"></div>
+        <div class="drawer-sub" id="drawer-sub"></div>
+      </div>
+    </div>
+    <div class="drawer-actions">
+      <button id="chat-clear" class="drawer-btn" title="Clear conversation">Clear</button>
+      <button id="drawer-close" class="drawer-btn close" aria-label="Close">✕</button>
+    </div>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-quick" id="chat-quick"></div>
+  <form class="chat-input" id="chat-form">
+    <textarea id="chat-text" rows="1" placeholder="Ask anything…"></textarea>
+    <button type="submit" id="chat-send" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</aside>
 
 <script src="app.js"></script>
 </body>

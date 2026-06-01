@@ -831,12 +831,16 @@ async function sendChat(key, text) {
 
   try {
     const res  = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system: sp.system, messages: store.chats[key].slice(-12).map(m => ({ role: m.role, text: m.text })) }) });
-    const data = await res.json();
+    let data;
+    try { data = await res.json(); } catch { data = {}; }
     document.getElementById('ty-' + key)?.remove();
-    store.chats[key].push({ role: 'model', text: res.ok ? data.text : `⚠️ ${data.error || 'Something went wrong.'}` });
+    store.chats[key].push({ role: 'model', text: res.ok ? (data.text || "No response — try again.") : `⚠️ ${data.error || 'Something went wrong.'}` });
   } catch {
     document.getElementById('ty-' + key)?.remove();
-    store.chats[key].push({ role: 'model', text: '⚠️ AI chat only works on Vercel — not from a local file.' });
+    const isFile = location.protocol === 'file:';
+    store.chats[key].push({ role: 'model', text: isFile
+      ? '⚠️ AI chat only works on Vercel — not from a local file.'
+      : '⚠️ Could not reach AI — check that GROQ_API_KEY is set in Vercel project settings, then redeploy.' });
   }
   persist(); renderChat(key);
 }

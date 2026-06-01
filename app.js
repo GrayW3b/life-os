@@ -12,12 +12,12 @@ const SPACES = {
   income: {
     name: 'Income Lab', icon: '💰', accent: '#f59e0b',
     sub: 'Pragmatic idea-validation partner',
-    system: `${GRAYSON}\n\nYou are a pragmatic business operator and idea-validation partner. Income goal: $100/day in 6–12 months. Active income first using his sales skills. Be skeptical of hype. For any idea give: (1) smallest testable version, (2) real time/money cost, (3) first 3 steps, (4) biggest risk.`,
+    system: `${GRAYSON}\n\nYou are a pragmatic passive-income and indie-hacker advisor. Income goal: $100/day in 6–12 months through autonomous income streams — digital products, micro-SaaS, content sites, or small tools that earn without active selling. Grayson is NOT looking for freelance or sales work. He wants to build something once, then have it earn while he's being a dad. Be skeptical of hype. For any idea: (1) explain the smallest buildable version, (2) describe exactly how it earns without him showing up daily, (3) give a realistic ramp timeline, (4) name the biggest risk.`,
     quick: [
-      { label: '⚡ Income Ideas',     text: 'Generate 3 realistic income ideas I can act on this week using my consultative sales skills. For each: what it is, who pays, first step, realistic first-month earning potential.' },
-      { label: '🔍 Pressure-Test',    text: 'I want to pressure-test an idea. Ask me what it is, then break it down: smallest testable version, real cost in time and money, first 3 steps, biggest risk.' },
-      { label: "📅 This Week's Move", text: 'Given my income goals and a baby due in November, what is the single most important thing I should do this week? Be specific.' },
-      { label: '💼 Freelance Pitch',  text: 'Draft a cold outreach message I can send today to a small business offering to help with their sales outreach or lead follow-up.' },
+      { label: '💡 Passive Ideas',    text: 'Give me 3 realistic passive income ideas I can build with basic coding skills and ~15 hrs/week. Must earn automatically — digital products, SaaS tools, or content sites. No freelance, no sales. For each: what it is, how it earns passively, build time, realistic monthly potential at 6 months.' },
+      { label: '🔍 Pressure-Test',    text: 'I want to pressure-test a passive income idea. Ask me what it is, then tell me: smallest buildable version, how it earns without me, realistic ramp time, biggest risk.' },
+      { label: '🛒 Launch a Product', text: 'Walk me through launching a digital product this week — a PDF guide, Notion template, or mini resource kit. What should I make, who buys it, where do I list it, how do I get first sales without cold outreach?' },
+      { label: '⚙️ Automate It',     text: "I have an income idea I'm building. Help me design it so it runs without me — automated delivery, passive traffic, recurring revenue. Ask me what the idea is first." },
     ],
   },
   health: {
@@ -99,12 +99,12 @@ const FOCUS_LINES = [
 
 // ── News queries ──────────────────────────────────────────
 const NEWS_QUERIES = {
-  home:    'startup business technology software',
-  income:  'startup revenue consulting freelance sales',
-  health:  'health longevity fitness nutrition science',
-  markets: 'business markets economy startup finance',
-  code:    'programming tools software web show hn',
-  growth:  'productivity habits leadership mindset self-improvement',
+  home:    { hn: 'startup technology software',              devto: 'productivity' },
+  income:  { hn: 'passive income saas indie hacker product', devto: 'passive-income' },
+  health:  { hn: 'health longevity fitness nutrition',       devto: 'health' },
+  markets: { hn: 'business markets economy finance investing',    devto: 'career' },
+  code:    { hn: 'programming tools software web show hn',        devto: 'javascript' },
+  growth:  { hn: 'productivity habits leadership mindset',        devto: 'beginners' },
 };
 
 // ── Workout plan ──────────────────────────────────────────
@@ -170,63 +170,63 @@ const CODE_CHALLENGES = [
   { title: 'Countdown Timer', difficulty: 'intermediate', desc: 'Build a countdown timer with start/pause/reset buttons. Display MM:SS format. Use setInterval.', tags: ['timers', 'DOM', 'state'] },
 ];
 
-// ── Project ideas ─────────────────────────────────────────
+// ── Project ideas (passive income — build once, earn autonomously) ────────
 const PROJECT_IDEAS = [
   {
-    title: 'Cold Email Tracker',
-    badge: 'project',
-    desc: 'Track every outreach: name, company, email date, follow-up date, status. Perfect for your SDR work.',
-    steps: ['HTML form to add a contact', 'Save to localStorage as an array', 'Color-code by status (sent / replied / closed)'],
-    hours: 2,
-  },
-  {
-    title: 'Habit Streak Counter',
-    badge: 'project',
-    desc: 'Pick one habit, tap a button each day, watch your streak grow. Simple but motivating.',
-    steps: ['Single button that increments a counter', 'localStorage saves the streak and last date', 'Reset streak if a day is missed'],
-    hours: 1.5,
-  },
-  {
-    title: 'Invoice Generator',
-    badge: 'project',
-    desc: 'For freelance work — fill in client name, service, rate, hours. Generates a printable invoice.',
-    steps: ['HTML form with client + line items', 'Calculate totals with JS', 'window.print() to generate PDF'],
+    title: 'Niche Directory Site',
+    badge: 'passive',
+    desc: 'Curate the best tools/resources for one niche (e.g. "best apps for new dads" or "free sales tools"). Monetize with affiliate links — earns every time someone clicks and buys.',
+    steps: ['Pick a niche you know. Build a simple HTML page listing 20–30 tools', 'Add affiliate links (Amazon, Gumroad, AppSumo all have programs)', 'Write one SEO-focused intro paragraph so Google sends free traffic'],
     hours: 3,
   },
   {
-    title: 'Daily Income Log',
-    badge: 'project',
-    desc: 'Log every dollar you earn. See your monthly total. Visual progress toward $100/day.',
-    steps: ['Input: amount + source + date', 'Chart the monthly total as a bar', 'Store everything in localStorage'],
-    hours: 2,
+    title: 'Gumroad Digital Product',
+    badge: 'passive',
+    desc: 'Package what you know into a PDF guide, cheat sheet, or resource kit. List it for $9–$29. Automated delivery — Gumroad handles payments and emailing the file.',
+    steps: ['Write a 10–20 page guide on something you\'ve learned (SDR scripts, sales objections, new dad prep)', 'Upload to Gumroad, set a price, write a short sales page', 'Post in 2–3 relevant Reddit communities or Facebook groups'],
+    hours: 5,
   },
   {
-    title: 'Baby Countdown Page',
-    badge: 'project',
-    desc: 'A beautiful countdown to November 12. Share the URL with family.',
-    steps: ['Calculate days/hours/mins from a target date', 'Animate the numbers updating', 'Deploy free to GitHub Pages'],
-    hours: 1,
+    title: 'Chrome Extension',
+    badge: 'passive',
+    desc: 'A simple browser utility (LinkedIn message templates, tab manager, productivity tool). List on the Chrome Web Store for $3–$5 one-time. Earns while you sleep.',
+    steps: ['Build a popup with an HTML/CSS/JS file — simpler than a full site', 'Submit to Chrome Web Store ($5 one-time fee)', 'Market in the r/productivity or relevant subreddit'],
+    hours: 8,
   },
   {
-    title: 'Quote of the Day Widget',
-    badge: 'project',
-    desc: 'Display a random quote from a curated list each day. Build it once, use it forever.',
-    steps: ['Array of 20+ quotes', 'Pick one based on the current day number', 'Style it beautifully — practice CSS'],
-    hours: 1,
+    title: 'Notion Template Pack',
+    badge: 'passive',
+    desc: 'Design 5–10 Notion templates for a niche (sales CRM, habit tracker, baby prep, budget). Sell on Gumroad or Etsy for $7–$19. Zero ongoing work after launch.',
+    steps: ['Build templates in Notion — no coding required', 'Duplicate them as shareable links, bundle into a Gumroad product', 'Post on Notion template forums and r/Notion'],
+    hours: 4,
   },
   {
-    title: 'Weekly Budget Tracker',
-    badge: 'project',
-    desc: 'Log expenses by category. See where money goes. Useful right now with a baby on the way.',
-    steps: ['Form: amount + category', 'Group and sum by category', 'Simple bar chart with CSS widths'],
-    hours: 2.5,
+    title: 'Micro SaaS Tool',
+    badge: 'passive',
+    desc: 'One-screen web app solving a specific pain (e.g. cold email subject line tester, QR code generator). Charge $5–$9/mo via Stripe. Recurring revenue with zero selling.',
+    steps: ['Build the core tool — one HTML page, some JS logic', 'Add Stripe Checkout for a subscription plan', 'Find 10 people who have this exact problem and share the link'],
+    hours: 15,
   },
   {
-    title: 'Workout Log App',
-    badge: 'project',
-    desc: 'Log your workouts: date, exercises, sets, reps. Track progress over weeks.',
-    steps: ['Form for date + exercise entries', 'Show last 7 workouts in a list', 'localStorage for persistence'],
-    hours: 2,
+    title: 'SEO Affiliate Blog',
+    badge: 'passive',
+    desc: 'A simple blog targeting low-competition search terms in a niche you know. Monetize with Google AdSense + Amazon affiliate. Traffic compounds — posts earn forever.',
+    steps: ['Pick 10 keywords with low competition (use Google "People Also Ask" for ideas)', 'Write honest comparison/review posts (500–1000 words each)', 'Deploy free on Vercel, add Google Analytics + AdSense'],
+    hours: 6,
+  },
+  {
+    title: 'Email Newsletter',
+    badge: 'passive',
+    desc: 'Weekly email to a targeted audience on a topic you know. Monetize via affiliate links in every issue. With 500 subscribers, a single affiliate mention earns $50–$200.',
+    steps: ['Start free on Beehiiv or ConvertKit', 'Write 4 issues before you launch — consistency matters', 'Post in relevant communities to get first 100 subscribers'],
+    hours: 3,
+  },
+  {
+    title: 'Stock Asset Pack',
+    badge: 'passive',
+    desc: 'Create icons, illustrations, or templates and upload to Envato, Creative Market, or Canva. Each sale is 100% passive — the marketplace handles everything.',
+    steps: ['Design 20–30 matching icons or 5–10 templates around a theme', 'Upload to Creative Market or Envato Elements', 'Optimize titles and tags for search — that\'s your only marketing'],
+    hours: 6,
   },
 ];
 
@@ -688,14 +688,8 @@ function renderBabyPrep() {
     }));
 }
 
-// ── HN news helpers ───────────────────────────────────────
+// ── News helpers ──────────────────────────────────────────
 const NEWS_TTL = 15 * 60 * 1000;
-
-async function fetchHN(query, n = 10) {
-  const r = await fetch(`https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(query)}&tags=story&hitsPerPage=${n}`);
-  if (!r.ok) throw new Error('HN fetch failed');
-  return (await r.json()).hits || [];
-}
 
 function ago(d) {
   const s = (Date.now() - new Date(d)) / 1000;
@@ -705,23 +699,51 @@ function ago(d) {
 }
 
 function domain(url) {
-  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return 'news.ycombinator.com'; }
+  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; }
 }
 
-function hnLink(item) { return item.url || `https://news.ycombinator.com/item?id=${item.objectID}`; }
+async function fetchHN(query, n = 6) {
+  const r = await fetch(`https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(query)}&tags=story&hitsPerPage=${n}`);
+  if (!r.ok) throw new Error('HN fetch failed');
+  return (await r.json()).hits.map(h => ({
+    title: h.title, url: h.url || `https://news.ycombinator.com/item?id=${h.objectID}`,
+    source: 'HN', score: h.points || 0, created_at: h.created_at,
+  }));
+}
+
+async function fetchDevTo(tag, n = 6) {
+  const r = await fetch(`https://dev.to/api/articles?per_page=${n}&tag=${encodeURIComponent(tag)}&state=fresh`);
+  if (!r.ok) throw new Error('Dev.to fetch failed');
+  return (await r.json()).map(a => ({
+    title: a.title, url: a.url || a.canonical_url,
+    source: 'dev.to', score: a.positive_reactions_count || 0, created_at: a.published_at,
+  }));
+}
+
+function interleave(a, b) {
+  const out = [];
+  const max = Math.max(a.length, b.length);
+  for (let i = 0; i < max; i++) { if (a[i]) out.push(a[i]); if (b[i]) out.push(b[i]); }
+  return out;
+}
 
 // Headlines (home)
 async function loadHeadlines() {
   const grid = document.getElementById('headlines-grid');
   const hint = document.getElementById('hl-hint');
   const c    = store.news.home;
-  if (c && Date.now() - c.ts < NEWS_TTL) { renderHeadlines(c.items); hint.textContent = 'live · Hacker News'; return; }
+  if (c && Date.now() - c.ts < NEWS_TTL) { renderHeadlines(c.items); hint.textContent = 'live · HN + Dev.to'; return; }
   grid.innerHTML = Array(6).fill('<div class="hl-skel"></div>').join('');
   hint.textContent = 'loading…';
   try {
-    const items = await fetchHN(NEWS_QUERIES.home, 6);
+    const q = NEWS_QUERIES.home;
+    const [hn, dt] = await Promise.allSettled([fetchHN(q.hn, 3), fetchDevTo(q.devto, 3)]);
+    const items = interleave(
+      hn.status === 'fulfilled' ? hn.value : [],
+      dt.status === 'fulfilled' ? dt.value : [],
+    );
     store.news.home = { items, ts: Date.now() }; persist();
-    renderHeadlines(items); hint.textContent = 'live · Hacker News';
+    renderHeadlines(items); hint.textContent = 'live · HN + Dev.to';
   } catch {
     grid.innerHTML = '<p style="grid-column:1/-1;padding:12px;font-size:.82rem;color:var(--muted)">Headlines load once deployed to Vercel.</p>';
     hint.textContent = 'offline';
@@ -732,8 +754,8 @@ function renderHeadlines(items) {
   const grid = document.getElementById('headlines-grid');
   if (!items?.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.82rem">No stories right now.</p>'; return; }
   grid.innerHTML = items.slice(0, 6).map(i => `
-    <a class="hl-card" href="${hnLink(i)}" target="_blank" rel="noopener">
-      <div class="hl-meta"><span class="hl-tag">HN</span><span class="hl-pts">▲ ${i.points || 0}</span><span class="hl-time">${ago(i.created_at)} ago</span></div>
+    <a class="hl-card" href="${escapeHTML(i.url)}" target="_blank" rel="noopener">
+      <div class="hl-meta"><span class="hl-tag">${i.source}</span><span class="hl-pts">▲ ${i.score}</span><span class="hl-time">${ago(i.created_at)} ago</span></div>
       <div class="hl-title">${escapeHTML(i.title || '')}</div>
       <div class="hl-domain">${domain(i.url || '')}</div>
     </a>`).join('');
@@ -746,7 +768,12 @@ async function loadNews(page) {
   if (c && Date.now() - c.ts < NEWS_TTL) { renderNews(el, c.items); return; }
   el.innerHTML = Array(6).fill('<div class="news-skel"></div>').join('');
   try {
-    const items = await fetchHN(NEWS_QUERIES[page] || NEWS_QUERIES.home, 12);
+    const q = NEWS_QUERIES[page] || NEWS_QUERIES.home;
+    const [hn, dt] = await Promise.allSettled([fetchHN(q.hn, 6), fetchDevTo(q.devto, 6)]);
+    const items = interleave(
+      hn.status === 'fulfilled' ? hn.value : [],
+      dt.status === 'fulfilled' ? dt.value : [],
+    ).slice(0, 12);
     store.news[page] = { items, ts: Date.now() }; persist();
     renderNews(el, items);
   } catch {
@@ -757,11 +784,12 @@ async function loadNews(page) {
 function renderNews(el, items) {
   if (!items?.length) { el.innerHTML = '<div class="news-empty">No stories found.</div>'; return; }
   el.innerHTML = items.map(i => `
-    <a class="news-item" href="${hnLink(i)}" target="_blank" rel="noopener">
+    <a class="news-item" href="${escapeHTML(i.url)}" target="_blank" rel="noopener">
       <div class="news-title">${escapeHTML(i.title || '')}</div>
       <div class="news-meta">
+        <span class="news-src ${i.source === 'HN' ? 'src-hn' : 'src-devto'}">${i.source}</span>
         <span class="news-domain">${domain(i.url || '')}</span>
-        <span class="news-pts">▲ ${i.points || 0}</span>
+        <span class="news-pts">▲ ${i.score}</span>
         <span class="news-age">${ago(i.created_at)} ago</span>
       </div>
     </a>`).join('');

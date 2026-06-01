@@ -1,9 +1,9 @@
-// Vercel serverless function — generates structured AI briefings via xAI Grok.
+// Vercel serverless function — generates structured AI briefings via Groq.
 // GET /api/feed?type=business  or  /api/feed?type=health
 // Returns { items: [{ title, insight, action }, ...x5] }
 
-const MODEL   = 'grok-3';
-const API_URL = 'https://api.x.ai/v1/chat/completions';
+const MODEL   = 'llama-3.3-70b-versatile';
+const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 const GRAYSON = `The reader is Grayson: 30, married, first child due November 12, sole income provider, Denver. Account Manager with strong consultative sales skills, basic coding knowledge. ~15 hrs/week, ~$100/mo budget. Tone: realistic, educational, no fluff.`;
 
@@ -20,7 +20,7 @@ Generate a Business & Markets briefing as a JSON object with an "items" array of
 Each object must have these string fields only:
 - "title": short headline
 - "insight": 2 plain-English sentences — what it is and why it matters to Grayson
-- "action": one concrete angle for someone with consultative sales background
+- "action": one concrete angle for someone with a consultative sales background
 
 Education only — no specific buy/sell advice.`,
 
@@ -42,10 +42,10 @@ General wellness education only — never diagnose or prescribe; refer to profes
 };
 
 export default async function handler(req, res) {
-  const key = process.env.XAI_API_KEY;
+  const key = process.env.GROQ_API_KEY;
   if (!key) {
     return res.status(500).json({
-      error: 'AI not configured. Add XAI_API_KEY in Vercel project settings.',
+      error: 'AI not configured. Add GROQ_API_KEY in Vercel project settings.',
     });
   }
 

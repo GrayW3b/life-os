@@ -1,19 +1,19 @@
-// Vercel serverless function — proxies AI chat to xAI Grok.
+// Vercel serverless function — proxies AI chat to Groq.
 // API key lives server-side only, never exposed to the browser.
-// Set XAI_API_KEY in Vercel → Project → Settings → Environment Variables.
+// Set GROQ_API_KEY in Vercel → Project → Settings → Environment Variables.
 
-const MODEL   = 'grok-3';
-const API_URL = 'https://api.x.ai/v1/chat/completions';
+const MODEL   = 'llama-3.3-70b-versatile';
+const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const key = process.env.XAI_API_KEY;
+  const key = process.env.GROQ_API_KEY;
   if (!key) {
     return res.status(500).json({
-      error: 'AI not configured. Add XAI_API_KEY in your Vercel project settings, then redeploy.',
+      error: 'AI not configured. Add GROQ_API_KEY in your Vercel project settings, then redeploy.',
     });
   }
 
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'messages array required' });
     }
 
-    // Build OpenAI-compatible message array.
+    // Build OpenAI-compatible message array for Groq.
     const payload = [];
     if (system) payload.push({ role: 'system', content: String(system) });
     messages

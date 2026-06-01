@@ -1,78 +1,78 @@
-// Vercel serverless function — generates the two Daily Brief cards via Groq.
+// Vercel serverless function — generates structured AI briefings via xAI Grok.
 // GET /api/feed?type=business  or  /api/feed?type=health
-// Returns { items: [{ title, insight, action }, ... x5] }
+// Returns { items: [{ title, insight, action }, ...x5] }
 
-const MODEL = 'llama-3.3-70b-versatile';
+const MODEL   = 'grok-3';
+const API_URL = 'https://api.x.ai/v1/chat/completions';
 
-const GRAYSON = `The reader is Grayson: 30, married, first child due November 12, sole income provider, Denver. Account Manager with strong consultative sales and people skills, basic coding knowledge, ~15 hrs/week, ~$100/mo budget. Tone: realistic, educational, no fluff, no hype.`;
+const GRAYSON = `The reader is Grayson: 30, married, first child due November 12, sole income provider, Denver. Account Manager with strong consultative sales skills, basic coding knowledge. ~15 hrs/week, ~$100/mo budget. Tone: realistic, educational, no fluff.`;
 
 const PROMPTS = {
   business: `${GRAYSON}
 
-Generate a Business & Markets briefing as a JSON object with an "items" array containing exactly 5 objects, covering in order:
+Generate a Business & Markets briefing as a JSON object with an "items" array of exactly 5 objects covering:
 1. A current market trend
 2. An entrepreneurship opportunity
-3. A finance / money-management concept worth knowing
-4. Something useful for someone building income streams
-5. One wild-card insight
+3. A finance / money-management concept
+4. Something useful for building income streams
+5. One wildcard insight
 
-Each object must have exactly these string fields:
-- "title": short, bold-worthy headline
-- "insight": 2 sentences in plain English — what it is and why it matters to Grayson
-- "action": one concrete angle tailored to someone with a consultative sales background
+Each object must have these string fields only:
+- "title": short headline
+- "insight": 2 plain-English sentences — what it is and why it matters to Grayson
+- "action": one concrete angle for someone with consultative sales background
 
-This is education, not financial advice — never give specific buy/sell calls.`,
+Education only — no specific buy/sell advice.`,
 
   health: `${GRAYSON}
 
-Generate a Health & Wellness briefing as a JSON object with an "items" array containing exactly 5 objects, covering in order:
+Generate a Health & Wellness briefing as a JSON object with an "items" array of exactly 5 objects covering:
 1. Strength / fitness
 2. Nutrition
 3. Sleep
 4. Mental wellness
 5. Longevity
 
-Each object must have exactly these string fields:
-- "title": short, bold-worthy headline
-- "insight": 2 sentences, research-grounded, plain English
-- "action": one concrete takeaway realistic for a busy person with ~3 hrs/week
+Each object must have these string fields only:
+- "title": short headline
+- "insight": 2 research-grounded plain-English sentences
+- "action": one realistic takeaway for someone with ~3 hrs/week
 
-This is general wellness education, NOT medical advice — never diagnose or prescribe; suggest seeing a professional for anything clinical.`,
+General wellness education only — never diagnose or prescribe; refer to professionals for clinical questions.`,
 };
 
 export default async function handler(req, res) {
-  const key = process.env.GROQ_API_KEY;
+  const key = process.env.XAI_API_KEY;
   if (!key) {
     return res.status(500).json({
-      error: 'AI is not configured yet. Add GROQ_API_KEY in your Vercel project settings, then redeploy.',
+      error: 'AI not configured. Add XAI_API_KEY in Vercel project settings.',
     });
   }
 
   const type = req.query.type === 'health' ? 'health' : 'business';
 
   try {
-    const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const r = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${key}`,
+        Authorization:  `Bearer ${key}`,
       },
       body: JSON.stringify({
-        model: MODEL,
+        model:    MODEL,
         messages: [
           {
-            role: 'system',
-            content:
-              'You are a helpful assistant. Always respond with valid JSON only — a JSON object with an "items" array. No markdown, no code fences, no extra text.',
+            role:    'system',
+            content: 'Respond with valid JSON only — a JSON object with an "items" array. No markdown, no code fences, no extra text.',
           },
           {
-            role: 'user',
+            role:    'user',
             content: PROMPTS[type],
           },
         ],
         response_format: { type: 'json_object' },
-        temperature: 0.85,
-        max_tokens: 2048,
+        temperature:     0.85,
+        max_tokens:      2048,
       }),
     });
 
@@ -84,14 +84,11 @@ export default async function handler(req, res) {
       });
     }
 
-    const raw = data?.choices?.[0]?.message?.content || '{}';
     let items = [];
     try {
-      const parsed = JSON.parse(raw);
+      const parsed = JSON.parse(data?.choices?.[0]?.message?.content || '{}');
       items = Array.isArray(parsed.items) ? parsed.items : [];
-    } catch {
-      items = [];
-    }
+    } catch { items = []; }
 
     return res.status(200).json({ items: items.slice(0, 5) });
   } catch (err) {

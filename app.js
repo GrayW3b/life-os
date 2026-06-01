@@ -1,71 +1,72 @@
 // ════════════════════════════════════════════════════════
-//  Life OS dashboard — v3 (AI spaces + daily brief)
+//  Life OS — v4  (dark · multi-page · live news · inline AI)
 // ════════════════════════════════════════════════════════
 
 const BABY_DAY = new Date('2026-11-12T00:00:00');
-const BRIEF_MAX_AGE = 18 * 60 * 60 * 1000; // regenerate briefs older than 18h
 
-// Shared context baked into every space persona.
-const GRAYSON = `You are speaking with Grayson: 30, married, first child due November 12, sole income provider, lives in Denver. Account Manager with strong consultative sales and people skills, basic coding knowledge. ~15 hrs/week available across goals, ~$100/mo budget. Tone: consultative, educational, realistic, no fluff. Push back when he's chasing shiny objects or getting ahead of himself. Never give medical advice — refer him to a professional for anything clinical. Keep replies focused and skimmable.`;
+// ── Shared AI context ─────────────────────────────────────
+const GRAYSON = `You are speaking with Grayson: 30, married, first child due November 12 2026, sole income provider, lives in Denver. Account Manager with strong consultative sales and people skills, basic coding knowledge. ~15 hrs/week available, ~$100/mo budget. Tone: consultative, educational, realistic — no fluff. Push back when he's chasing shiny objects. Never give medical advice. Keep replies focused and skimmable.`;
 
+// ── AI Spaces ─────────────────────────────────────────────
 const SPACES = {
   income: {
     name: 'Income Lab', icon: '💰', accent: '#f59e0b',
     sub: 'Pragmatic idea-validation partner',
-    system: `${GRAYSON}\n\nYou are a pragmatic business operator and idea-validation partner. Income goal: $100/day treated as a 6–12 month build. Active income first using his sales skills, passive later. Be skeptical of hype. For any idea give: (1) smallest testable version, (2) real time/money cost, (3) first 3 concrete steps, (4) biggest risk. Ground everything in what he can do this week.`,
+    system: `${GRAYSON}\n\nYou are a pragmatic business operator and idea-validation partner. Income goal: $100/day in 6–12 months. Active income first using his sales skills. Be skeptical of hype. For any idea give: (1) smallest testable version, (2) real time/money cost, (3) first 3 steps, (4) biggest risk.`,
     quick: [
-      { label: '⚡ Income Ideas', text: 'Generate 3 realistic income ideas I can act on this week based on my consultative sales skills. For each: what it is, who pays, first step to test it, realistic first-month earning potential.' },
-      { label: '🔍 Pressure-Test', text: 'I want to pressure-test an idea. Ask me what it is, then break it down: smallest testable version, real cost in time and money, first 3 steps, biggest risk.' },
-      { label: "📅 This Week's Move", text: 'Given my income goals and a baby due in November, what is the single most important thing I should do this week? Be specific — what, how long, what success looks like.' },
-      { label: '💼 Freelance Pitch', text: 'Draft a short cold outreach message I could send today to a small business offering to help with their sales outreach or lead follow-up.' },
+      { label: '⚡ Income Ideas',     text: 'Generate 3 realistic income ideas I can act on this week using my consultative sales skills. For each: what it is, who pays, first step, realistic first-month earning potential.' },
+      { label: '🔍 Pressure-Test',    text: 'I want to pressure-test an idea. Ask me what it is, then break it down: smallest testable version, real cost in time and money, first 3 steps, biggest risk.' },
+      { label: "📅 This Week's Move", text: 'Given my income goals and a baby due in November, what is the single most important thing I should do this week? Be specific.' },
+      { label: '💼 Freelance Pitch',  text: 'Draft a cold outreach message I can send today to a small business offering to help with their sales outreach or lead follow-up.' },
     ],
   },
   health: {
     name: 'Health HQ', icon: '💪', accent: '#10b981',
     sub: 'Evidence-based habit coach',
-    system: `${GRAYSON}\n\nYou are an evidence-based training, nutrition, sleep, and habit coach. He has ~3 hrs/week for health. Goals: sustainable fat loss, baseline strength, energy, longevity — be fit and active for his kid. You are NOT a doctor — send him to a professional for anything medical. No extreme restriction or unsafe loads. Ask about equipment and injuries before building plans. Favor habits he'll keep through a newborn phase; sleep disruption is coming, so build resilience in.`,
+    system: `${GRAYSON}\n\nYou are an evidence-based coach for training, nutrition, sleep, and habits. He has ~3 hrs/week. Goals: sustainable fat loss, baseline strength, energy, longevity. NOT a doctor. No extreme restriction or unsafe loads. Ask about equipment and injuries before building plans. Favor habits he can maintain through a newborn phase.`,
     quick: [
-      { label: '💪 Weekly Workout', text: 'Build me a practical workout plan for this week. I have about 3 hours total. Before building it, ask me what equipment I have and if I have any injuries.' },
-      { label: '🍽️ Meal Plan', text: 'Create a simple weekly meal plan for fat loss and energy. Ask me about food preferences, restrictions, and cooking time first.' },
-      { label: '📊 Weekly Check-In', text: 'Run my weekly health check-in. Ask about workouts, nutrition, sleep, energy. Give me one focused adjustment for next week — just one.' },
-      { label: '😴 Sleep Routine', text: 'Build me a practical wind-down routine. Flag that protecting sleep now matters even more before the baby arrives.' },
+      { label: '💪 Custom Workout',   text: 'Build me a personalized workout plan for this week. I have about 3 hours total. First ask me what equipment I have and if I have any injuries or limitations.' },
+      { label: '🍽️ Meal Plan',        text: 'Create a simple weekly meal plan for fat loss and energy. Ask me about food preferences, restrictions, and how much time I have to cook.' },
+      { label: '📊 Weekly Check-In',  text: 'Run my weekly health check-in. Ask about workouts, nutrition, sleep, and energy levels. Give me one focused adjustment — just one.' },
+      { label: '😴 Sleep Routine',    text: 'Build me a practical wind-down routine. Remind me why protecting sleep now matters before the baby arrives.' },
     ],
   },
   markets: {
     name: 'Markets', icon: '📈', accent: '#3b82f6',
     sub: 'Business educator & idea generator',
-    system: `${GRAYSON}\n\nYou are a business educator, markets explainer, and entrepreneurship idea generator. Teach the "why" behind business, finance, and markets — never just facts. You are NOT a financial advisor — explain concepts and tradeoffs, never give buy/sell advice on specific assets. For every market or business development, draw the entrepreneurial angle. Quiz him and build on earlier lessons.`,
+    system: `${GRAYSON}\n\nYou are a business educator, markets explainer, and entrepreneurship idea generator. Teach the "why" behind finance and markets. NOT a financial advisor — explain concepts, never give specific buy/sell advice. For every development, draw the entrepreneurial angle. Quiz him and build on prior lessons.`,
     quick: [
-      { label: '📰 Business Briefing', text: 'Give me a business and entrepreneurship briefing. Cover 4 important things in business and markets right now — plain English, why it matters to me, and what entrepreneurial angle it suggests.' },
-      { label: '🎓 Teach Me Something', text: 'Teach me one foundational business or finance concept. Explain the real-world why, give a concrete example, then quiz me.' },
-      { label: '💡 Business Ideas', text: 'Generate 3 business ideas that fit my sales background. For each: what it is, who the customer is, why my skills give me an edge, first testable step.' },
-      { label: '📚 Build My Syllabus', text: 'Create a personalized 12-week business and finance learning plan for a motivated beginner starting from scratch.' },
+      { label: '📰 Markets Brief',    text: 'Give me a business and markets briefing. Cover 4 important developments in plain English — why each matters and what entrepreneurial angle it suggests.' },
+      { label: '🎓 Teach Me',        text: 'Teach me one foundational business or finance concept. Explain the real-world why, give a concrete example, then quiz me.' },
+      { label: '💡 Business Ideas',  text: 'Generate 3 business ideas that fit my sales background. For each: what it is, who pays, why my skills give me an edge, first testable step.' },
+      { label: '📚 12-Week Syllabus', text: 'Create a personalized 12-week business and finance learning plan starting from scratch.' },
     ],
   },
   code: {
     name: 'Code Lab', icon: '⌨️', accent: '#8b5cf6',
     sub: 'Patient senior engineer & mentor',
-    system: `${GRAYSON}\n\nYou are a patient senior engineer and coding mentor. He is a near-complete beginner with ~2 hrs/week; the goal is to build small useful or sellable tools. Teach through real finishable projects tied to his actual goals (income, health, daily life). Guide toward answers rather than dumping solutions. Track what you've covered. Help him set up Git/GitHub. Review code honestly. Encouraging but no fluff.`,
+    system: `${GRAYSON}\n\nYou are a patient senior engineer and coding mentor. Near-complete beginner, ~2 hrs/week. Goal: build small, useful, sellable tools. Teach through real finishable projects tied to his goals. Guide toward answers rather than dumping solutions. Review code honestly. Encouraging but no fluff.`,
     quick: [
       { label: '🛠️ Suggest a Project', text: 'Suggest one beginner project I can finish in ~2 hours this week, tied to one of my real goals. Give the what, why it fits me, and step one.' },
-      { label: '📚 Teach a Concept', text: 'Explain one coding concept I should learn next. Plain English, small working example, why it matters.' },
-      { label: '🚀 Pick My Language', text: 'Tell me what language to learn first for building sellable tools. Direct recommendation, tell me why.' },
-      { label: '🐙 GitHub Setup', text: 'Walk me through creating a repo, making a first commit, and pushing code — step by step.' },
+      { label: '📚 Teach a Concept',   text: 'Explain one coding concept I should learn next. Plain English, small working example, why it matters for building tools.' },
+      { label: '🚀 What Language?',    text: 'Tell me the best language to learn first for building sellable tools. Direct recommendation and tell me exactly why.' },
+      { label: '🐙 GitHub Help',       text: 'Walk me step by step through creating a repo, making a first commit, and pushing code to GitHub.' },
     ],
   },
   growth: {
     name: 'Growth', icon: '🌱', accent: '#f43f5e',
     sub: 'Grounded reflection partner',
-    system: `${GRAYSON}\n\nYou are a grounded mentor and reflection partner. Goal: he becomes dependable, capable, a steady leader for his family. Use journaling prompts, honest questions, accountability. You are NOT a therapist — point him to a professional or trusted person for serious struggles. Encourage real-world relationships and action over endless self-reflection. Challenge him directly when he's avoiding something. Remind him being a great partner to his wife matters as much as any personal goal.`,
+    system: `${GRAYSON}\n\nYou are a grounded mentor and reflection partner. Goal: dependable, capable, steady family leader. Use journaling prompts, honest questions, accountability. NOT a therapist. Encourage real-world action. Challenge him when he's avoiding something. Remind him: being a great partner to his wife matters as much as any personal goal.`,
     quick: [
-      { label: '📋 Weekly Review', text: 'Run my weekly review — tight and honest. Ask: biggest win, where I fell short, how I showed up for my wife, one focus for next week. Reflect back what you hear.' },
-      { label: '🌅 Morning Prompt', text: 'Give me one sharp morning journal prompt. One specific question I\'ll actually sit with.' },
-      { label: '🎯 Set My Intention', text: 'Ask what\'s weighing on me most right now. Help me commit to one concrete thing for the week.' },
-      { label: '💬 Values Check', text: 'Walk me through defining or revisiting 4–5 core values and what living them looks like right now.' },
+      { label: '📋 Weekly Review',  text: 'Run my weekly review — tight and honest. Ask: biggest win, where I fell short, how I showed up for my wife, one focus for next week.' },
+      { label: '🌅 Morning Prompt', text: "Give me one sharp morning journal prompt. One specific question I'll actually sit with." },
+      { label: '🎯 Set Intention',  text: "Ask what's weighing on me most. Help me commit to one concrete thing for the week." },
+      { label: '👶 Dad Mindset',    text: 'Talk to me about the mindset shift that comes with becoming a father. What should I be thinking about, preparing for emotionally?' },
     ],
   },
 };
 
+// ── Default data ──────────────────────────────────────────
 const DEFAULT_HABITS = [
   { id: 'journal', emoji: '📝', label: '2-min journal — grateful + one goal' },
   { id: 'workout', emoji: '💪', label: 'Workout or intentional movement' },
@@ -91,113 +92,378 @@ const FOCUS_LINES = [
   'Protect time with your wife above optimizing yourself.',
   'Learn one thing today that levels you up.',
   "Steady, present, dependable. That's the whole game.",
+  'Do the hard thing first. Everything else gets easier.',
+  'You are the example your child will grow up to follow.',
+  'Progress beats perfection every single time.',
 ];
 
-// ── Store (single localStorage object) ───────────────────
-const KEY = 'lifeos-v3';
+// ── News queries ──────────────────────────────────────────
+const NEWS_QUERIES = {
+  home:    'startup business technology software',
+  income:  'startup revenue consulting freelance sales',
+  health:  'health longevity fitness nutrition science',
+  markets: 'business markets economy startup finance',
+  code:    'programming tools software web show hn',
+  growth:  'productivity habits leadership mindset self-improvement',
+};
+
+// ── Workout plan ──────────────────────────────────────────
+const WORKOUT_PLAN = [
+  {
+    day: 'Day 1', focus: 'Push — Chest, Shoulders, Triceps', color: '#f59e0b', duration: '~40 min',
+    exercises: [
+      { name: 'Push-ups',          sets: '4 × 12',   note: 'Elevate feet on a chair to increase difficulty' },
+      { name: 'Pike Push-ups',     sets: '3 × 10',   note: 'Shoulders — form a V with your hips high' },
+      { name: 'Diamond Push-ups',  sets: '3 × 10',   note: 'Hands form a diamond, hits triceps hard' },
+      { name: 'Plank',             sets: '3 × 45 s', note: 'Squeeze glutes, brace core, flat back' },
+    ],
+  },
+  {
+    day: 'Day 2', focus: 'Pull + Legs — Back, Biceps, Glutes', color: '#10b981', duration: '~45 min',
+    exercises: [
+      { name: 'Inverted Rows',     sets: '4 × 10',   note: 'Under a sturdy table, body straight' },
+      { name: 'Bodyweight Squats', sets: '4 × 15',   note: 'Go below parallel, chest up' },
+      { name: 'Reverse Lunges',    sets: '3 × 10 ea', note: 'Step back, knee hovers near floor' },
+      { name: 'Superman Hold',     sets: '3 × 12',   note: 'Lying prone, lift arms + legs, squeeze glutes' },
+    ],
+  },
+  {
+    day: 'Day 3', focus: 'Full Body Circuit — Fat Burn', color: '#8b5cf6', duration: '~35 min',
+    exercises: [
+      { name: 'Burpees',           sets: '3 × 10',   note: 'Full jump at the top' },
+      { name: 'Mountain Climbers', sets: '3 × 30 s', note: 'Fast and controlled' },
+      { name: 'Jump Squats',       sets: '3 × 12',   note: 'Land soft — absorb with legs, not knees' },
+      { name: 'Hollow Body Hold',  sets: '3 × 30 s', note: 'Lower back stays pressed to floor' },
+    ],
+  },
+];
+
+// ── Nutrition targets ─────────────────────────────────────
+const NUTRITION = {
+  note: 'Estimated for 250 lb male, moderate deficit, fat loss focus.',
+  macros: [
+    { label: 'Calories', value: '2,400', unit: 'kcal', color: '#f59e0b', note: '~500 cal deficit' },
+    { label: 'Protein',  value: '190',   unit: 'g',    color: '#10b981', note: '0.75g per lb' },
+    { label: 'Carbs',    value: '240',   unit: 'g',    color: '#3b82f6', note: 'Fuel workouts' },
+    { label: 'Fat',      value: '70',    unit: 'g',    color: '#8b5cf6', note: 'Hormones & satiety' },
+  ],
+  tips: [
+    'Hit protein first — fat loss follows when protein is high.',
+    'Meal prep one protein source on Sunday (chicken, eggs, ground beef).',
+    'Track for just 2 weeks to calibrate — then cook by feel.',
+  ],
+};
+
+// ── Coding challenges ─────────────────────────────────────
+const CODE_CHALLENGES = [
+  { title: 'FizzBuzz', difficulty: 'beginner', desc: 'Loop 1–100. Print "Fizz" for multiples of 3, "Buzz" for 5, "FizzBuzz" for both. Classic for a reason.', tags: ['loops', 'conditionals'] },
+  { title: 'Reverse a String', difficulty: 'beginner', desc: 'Write a function that reverses a string without using .reverse(). Build it manually with a loop.', tags: ['strings', 'functions'] },
+  { title: 'Count Vowels', difficulty: 'beginner', desc: 'Write a function that takes a sentence and returns the number of vowels (a, e, i, o, u). Case-insensitive.', tags: ['strings', 'loops'] },
+  { title: 'Palindrome Check', difficulty: 'beginner', desc: 'Write a function that returns true if a word reads the same forwards and backwards. "racecar" → true.', tags: ['strings', 'logic'] },
+  { title: 'Find the Largest', difficulty: 'beginner', desc: 'Given an array of numbers, return the largest without using Math.max(). Loop through manually.', tags: ['arrays', 'loops'] },
+  { title: 'Flatten an Array', difficulty: 'intermediate', desc: 'Take a nested array like [1,[2,[3]],4] and return [1,2,3,4]. Try it with recursion.', tags: ['arrays', 'recursion'] },
+  { title: 'Todo List in the DOM', difficulty: 'beginner', desc: 'Build a working to-do list: an input, an "Add" button, and items that toggle done/undone on click. Pure HTML/CSS/JS.', tags: ['DOM', 'events', 'CSS'] },
+  { title: 'Local Storage Persistence', difficulty: 'beginner', desc: 'Take your to-do list and make it survive page refresh using localStorage.getItem and .setItem.', tags: ['localStorage', 'JSON'] },
+  { title: 'Fetch an API', difficulty: 'intermediate', desc: 'Fetch the top 5 stories from Hacker News API (hn.algolia.com) and display titles as a list in the DOM.', tags: ['fetch', 'async', 'API'] },
+  { title: 'Temperature Converter', difficulty: 'beginner', desc: 'Build a form that converts Fahrenheit ↔ Celsius in real-time as you type. Update the result on every keystroke.', tags: ['DOM', 'math', 'events'] },
+  { title: 'Word Frequency Counter', difficulty: 'intermediate', desc: 'Given a paragraph, return an object with each word as a key and its count as the value. Split on spaces, ignore punctuation.', tags: ['objects', 'strings'] },
+  { title: 'Countdown Timer', difficulty: 'intermediate', desc: 'Build a countdown timer with start/pause/reset buttons. Display MM:SS format. Use setInterval.', tags: ['timers', 'DOM', 'state'] },
+];
+
+// ── Project ideas ─────────────────────────────────────────
+const PROJECT_IDEAS = [
+  {
+    title: 'Cold Email Tracker',
+    badge: 'project',
+    desc: 'Track every outreach: name, company, email date, follow-up date, status. Perfect for your SDR work.',
+    steps: ['HTML form to add a contact', 'Save to localStorage as an array', 'Color-code by status (sent / replied / closed)'],
+    hours: 2,
+  },
+  {
+    title: 'Habit Streak Counter',
+    badge: 'project',
+    desc: 'Pick one habit, tap a button each day, watch your streak grow. Simple but motivating.',
+    steps: ['Single button that increments a counter', 'localStorage saves the streak and last date', 'Reset streak if a day is missed'],
+    hours: 1.5,
+  },
+  {
+    title: 'Invoice Generator',
+    badge: 'project',
+    desc: 'For freelance work — fill in client name, service, rate, hours. Generates a printable invoice.',
+    steps: ['HTML form with client + line items', 'Calculate totals with JS', 'window.print() to generate PDF'],
+    hours: 3,
+  },
+  {
+    title: 'Daily Income Log',
+    badge: 'project',
+    desc: 'Log every dollar you earn. See your monthly total. Visual progress toward $100/day.',
+    steps: ['Input: amount + source + date', 'Chart the monthly total as a bar', 'Store everything in localStorage'],
+    hours: 2,
+  },
+  {
+    title: 'Baby Countdown Page',
+    badge: 'project',
+    desc: 'A beautiful countdown to November 12. Share the URL with family.',
+    steps: ['Calculate days/hours/mins from a target date', 'Animate the numbers updating', 'Deploy free to GitHub Pages'],
+    hours: 1,
+  },
+  {
+    title: 'Quote of the Day Widget',
+    badge: 'project',
+    desc: 'Display a random quote from a curated list each day. Build it once, use it forever.',
+    steps: ['Array of 20+ quotes', 'Pick one based on the current day number', 'Style it beautifully — practice CSS'],
+    hours: 1,
+  },
+  {
+    title: 'Weekly Budget Tracker',
+    badge: 'project',
+    desc: 'Log expenses by category. See where money goes. Useful right now with a baby on the way.',
+    steps: ['Form: amount + category', 'Group and sum by category', 'Simple bar chart with CSS widths'],
+    hours: 2.5,
+  },
+  {
+    title: 'Workout Log App',
+    badge: 'project',
+    desc: 'Log your workouts: date, exercises, sets, reps. Track progress over weeks.',
+    steps: ['Form for date + exercise entries', 'Show last 7 workouts in a list', 'localStorage for persistence'],
+    hours: 2,
+  },
+];
+
+// ── Daily quotes ──────────────────────────────────────────
+const QUOTES = [
+  { text: "The most important thing a father can do for his children is to love their mother.", author: "Theodore Hesburgh" },
+  { text: "Discipline is choosing between what you want now and what you want most.", author: "Abraham Lincoln" },
+  { text: "You don't rise to the level of your goals. You fall to the level of your systems.", author: "James Clear" },
+  { text: "A ship in harbor is safe, but that's not what ships are for.", author: "John A. Shedd" },
+  { text: "The secret to getting ahead is getting started.", author: "Mark Twain" },
+  { text: "Don't watch the clock. Do what it does — keep going.", author: "Sam Levenson" },
+  { text: "It is not the load that breaks you down — it's the way you carry it.", author: "C.S. Lewis" },
+  { text: "Small disciplines repeated with consistency every day lead to great achievements gained slowly over time.", author: "John C. Maxwell" },
+  { text: "The man who moves a mountain begins by carrying away small stones.", author: "Confucius" },
+  { text: "Your children will become who you are, so be who you want them to be.", author: "Unknown" },
+  { text: "We do not rise to the level of our expectations. We fall to the level of our training.", author: "Archilochus" },
+  { text: "Someday is not a day of the week.", author: "Janet Dailey" },
+  { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+  { text: "The harder you work for something, the greater you'll feel when you achieve it.", author: "Unknown" },
+  { text: "Do the hard work. Especially when you don't feel like it.", author: "Seth Godin" },
+  { text: "Your family is your greatest investment. Everything else is secondary.", author: "Unknown" },
+  { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+  { text: "Strength does not come from physical capacity. It comes from an indomitable will.", author: "Mahatma Gandhi" },
+  { text: "Be the kind of man your son wants to be and your daughter wants to marry.", author: "Unknown" },
+  { text: "Rich or poor, a man's job is to protect and provide. That never changes.", author: "Unknown" },
+];
+
+// ── Parenting tips ────────────────────────────────────────
+const PARENTING_TIPS = [
+  { category: 'Prep Now', tip: "Pack the hospital bag by week 36. Pack snacks for yourself too — you're there for the long haul and will forget to eat." },
+  { category: 'Birth Day', tip: 'Skin-to-skin contact with dad matters just as much as with mom. Ask for it immediately in the delivery room — it builds your bond fast.' },
+  { category: 'Sleep', tip: 'Take shifts in the early weeks. Each of you needs one 4–5 hour uninterrupted stretch to function. Split the nights and protect each other.' },
+  { category: 'Sleep', tip: "Start a bedtime routine by 6–8 weeks: bath → feed → dark room → white noise. The consistency matters more than the specific steps." },
+  { category: 'Feeding', tip: "If breastfeeding, know it's genuinely hard for the first 2–3 weeks. That's normal. A lactation consultant is worth every dollar." },
+  { category: 'For Dad', tip: "Your job in the delivery room: be calm, be present, advocate for your wife, and eat something before you go in. You're her anchor." },
+  { category: 'For Dad', tip: "Take every diaper change you can in the first weeks. It builds confidence, gives your wife rest, and bonds you to the baby faster than you'd expect." },
+  { category: 'Development', tip: "Talk to your baby constantly from day one — narrate what you're doing. Language development starts long before they respond. They're absorbing everything." },
+  { category: 'Development', tip: "Read out loud starting in the hospital. Doesn't matter what — your voice is what matters. Board books, news, whatever you have." },
+  { category: 'Marriage', tip: "Schedule a 20-minute check-in with your wife weekly after baby arrives. Keeping the partnership strong is not optional — it's what your kid needs most." },
+  { category: 'Finances', tip: "Add the baby to your health insurance within 30 days of birth — missing this window means waiting for open enrollment. Don't let it slip." },
+  { category: 'Finances', tip: "Open a small savings account when the baby arrives, even if it's just $25/month. The habit matters more than the amount right now." },
+  { category: 'Safety', tip: "Get the car seat inspected at a local fire station before the due date. Most are installed incorrectly. Free service, 10 minutes, peace of mind." },
+  { category: 'Mental Health', tip: "Paternal postpartum depression is real and affects ~1 in 10 dads. Irritability, withdrawal, or emptiness after baby — talk to someone. It's not weakness." },
+  { category: 'Big Picture', tip: "The days are long and the years are short. You'll blink and they'll be walking. The exhaustion is real but so is the joy — try to notice both." },
+];
+
+// ── Baby prep checklist ───────────────────────────────────
+const BABY_PREP = [
+  { id: 'carseat',   label: 'Install + get car seat inspected', cat: 'Safety' },
+  { id: 'nursery',   label: 'Set up nursery / sleep space',      cat: 'Nursery' },
+  { id: 'pediatric', label: 'Choose a pediatrician',             cat: 'Medical' },
+  { id: 'insurance', label: 'Add baby to health insurance',      cat: 'Finances' },
+  { id: 'leave',     label: 'File for paternity leave',          cat: 'Work' },
+  { id: 'bag',       label: 'Pack hospital bag (both of you)',   cat: 'Birth' },
+  { id: 'tour',      label: 'Take hospital tour',                cat: 'Birth' },
+  { id: 'class',     label: 'Attend birth prep / CPR class',     cat: 'Education' },
+  { id: 'will',      label: 'Update will + life insurance',      cat: 'Finances' },
+  { id: 'savings',   label: 'Open baby savings account',         cat: 'Finances' },
+  { id: 'freezer',   label: 'Freeze 1–2 weeks of meals',         cat: 'Prep' },
+  { id: 'contact',   label: 'Lock in emergency contact list',    cat: 'Safety' },
+];
+
+// ── Auto-emoji for habits ─────────────────────────────────
+const EMOJI_MAP = [
+  [/journal|write|grat/i,     '📝'],
+  [/meditat|breath|mindful/i, '🧘'],
+  [/workout|gym|lift|train/i, '💪'],
+  [/run|jog|cardio/i,         '🏃'],
+  [/walk|steps|outside/i,     '🚶'],
+  [/water|hydrat/i,           '💧'],
+  [/eat|meal|nutrition|food/i,'🥗'],
+  [/sleep|bed|rest/i,         '😴'],
+  [/read|book/i,              '📚'],
+  [/code|build|dev|program/i, '⌨️'],
+  [/income|earn|money|sale/i, '💰'],
+  [/wife|family|partner|pres/i,'❤️'],
+  [/stretch|yoga|mobility/i,  '🧘'],
+  [/cold|shower/i,            '🚿'],
+  [/vitamin|supplement/i,     '💊'],
+  [/plan|review|reflect/i,    '📋'],
+  [/learn|study|course/i,     '🎓'],
+];
+function autoEmoji(label) {
+  for (const [re, em] of EMOJI_MAP) if (re.test(label)) return em;
+  return '✅';
+}
+
+// ── Toast ─────────────────────────────────────────────────
+function toast(msg, type = '') {
+  const stack = document.getElementById('toast-stack');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type ? ' ' + type : '');
+  el.textContent = msg;
+  stack.appendChild(el);
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('show')));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 250); }, 2200);
+}
+
+// ── Store ─────────────────────────────────────────────────
+const KEY   = 'lifeos-v4';
 const today = () => new Date().toISOString().slice(0, 10);
 
-function load() {
-  try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; }
-}
+function load()  { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } }
 function save(s) { localStorage.setItem(KEY, JSON.stringify(s)); }
 
 let store = load();
-// Seed defaults once.
-if (!store.habitsList) store.habitsList = DEFAULT_HABITS.map((h) => ({ ...h }));
+if (!store.habitsList) store.habitsList = DEFAULT_HABITS.map(h => ({ ...h }));
 if (!store.milestones) {
   store.milestones = {};
-  DEFAULT_MILESTONES.forEach((m) => { store.milestones[m.id] = { label: m.label, sub: m.sub, hit: false, date: null }; });
+  DEFAULT_MILESTONES.forEach(m => { store.milestones[m.id] = { label: m.label, sub: m.sub, hit: false, date: null }; });
 }
-if (!store.chats) store.chats = {};
-if (!store.briefs) store.briefs = {};
+if (!store.chats)     store.chats    = {};
+if (!store.news)      store.news     = {};
+if (!store.babyPrep)  store.babyPrep = {};
+if (!store.quoteIdx)  store.quoteIdx  = Math.floor(Date.now() / 86400000) % QUOTES.length;
+if (!store.tipIdx)    store.tipIdx    = Math.floor(Date.now() / 86400000) % PARENTING_TIPS.length;
 if (store.habitsDate !== today()) { store.habitsDate = today(); store.habitsDone = {}; }
+if (!store.habitsDone) store.habitsDone = {};
 save(store);
-
 function persist() { save(store); }
 
-// ── Header / hero / stats ────────────────────────────────
+// Daily content indices (stable per day, user can advance)
+const DAY_NUM = Math.floor(Date.now() / 86400000);
+
+// ── Clock ─────────────────────────────────────────────────
 function tick() {
   const now = new Date();
-  const h = now.getHours();
-  const g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+  const h   = now.getHours();
+  const g   = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
   document.getElementById('greeting').textContent = `${g}, Grayson`;
   document.getElementById('datetime').textContent = now.toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit',
   });
 }
 
+// ── Stats ─────────────────────────────────────────────────
 function renderStats() {
-  const now = new Date();
-  document.getElementById('hero-focus').textContent =
-    FOCUS_LINES[Math.floor(now.getTime() / 86400000) % FOCUS_LINES.length];
-
+  const now   = new Date();
   const total = store.habitsList.length;
-  const done = Object.values(store.habitsDone || {}).filter(Boolean).length;
-  const goalsHit = Object.values(store.milestones).filter((m) => m.hit).length;
-  const daysLeft = Math.max(0, Math.ceil((BABY_DAY - now) / 86400000));
+  const done  = Object.values(store.habitsDone || {}).filter(Boolean).length;
+  const hits  = Object.values(store.milestones).filter(m => m.hit).length;
+  const days  = Math.max(0, Math.ceil((BABY_DAY - now) / 86400000));
 
-  document.getElementById('stat-habits').textContent = `${done}/${total}`;
-  document.getElementById('stat-goals').textContent = `${goalsHit}/${DEFAULT_MILESTONES.length}`;
-  document.getElementById('stat-days').textContent = daysLeft;
-  document.getElementById('baby-countdown').textContent = daysLeft;
+  document.getElementById('hero-focus').textContent =
+    FOCUS_LINES[DAY_NUM % FOCUS_LINES.length];
+
+  const hEl = document.getElementById('stat-habits');
+  hEl.textContent = `${done}/${total}`;
+  hEl.style.color = total && done === total ? 'var(--green)' : done > 0 ? 'var(--brand)' : '';
+
+  const gEl = document.getElementById('stat-goals');
+  gEl.textContent = `${hits}/${DEFAULT_MILESTONES.length}`;
+  gEl.style.color = hits === DEFAULT_MILESTONES.length ? 'var(--green)' : hits > 0 ? 'var(--brand)' : '';
+
+  document.getElementById('stat-days').textContent      = days;
+  document.getElementById('baby-countdown').textContent = days;
 }
 
-// ── Habits (customizable) ────────────────────────────────
+// ── Habits — home page ────────────────────────────────────
 function renderHabits() {
   const total = store.habitsList.length;
-  const done = Object.values(store.habitsDone || {}).filter(Boolean).length;
-  document.getElementById('habit-fill').style.width = total ? `${(done / total) * 100}%` : '0%';
+  const done  = Object.values(store.habitsDone || {}).filter(Boolean).length;
+  document.getElementById('habit-fill').style.width  = total ? `${(done / total) * 100}%` : '0%';
   document.getElementById('habit-count').textContent = `${done}/${total}`;
 
   const list = document.getElementById('habit-list');
-  list.innerHTML = store.habitsList.map((h) => `
+  list.innerHTML = store.habitsList.map(h => `
     <div class="habit ${store.habitsDone[h.id] ? 'done' : ''}" data-id="${h.id}">
-      <span class="habit-emoji">${h.emoji || '•'}</span>
+      <span class="habit-emoji">${h.emoji || '✅'}</span>
       <span class="habit-label">${escapeHTML(h.label)}</span>
       <span class="check">✓</span>
-      <button class="habit-del" data-del="${h.id}" title="Remove" aria-label="Remove habit">✕</button>
+      <button class="habit-del" data-del="${h.id}" title="Remove">✕</button>
     </div>`).join('');
 
-  list.querySelectorAll('.habit').forEach((el) => {
-    el.addEventListener('click', (e) => {
+  list.querySelectorAll('.habit').forEach(el => {
+    el.addEventListener('click', e => {
       if (e.target.closest('.habit-del')) return;
       const id = el.dataset.id;
-      if (store.habitsDone[id]) delete store.habitsDone[id]; else store.habitsDone[id] = true;
-      persist(); renderHabits(); renderStats();
+      const h  = store.habitsList.find(x => x.id === id);
+      if (store.habitsDone[id]) { delete store.habitsDone[id]; }
+      else { store.habitsDone[id] = true; if (h) toast(`${h.emoji || '✓'} ${h.label}`, 'green'); }
+      persist(); renderHabits(); renderHabitsHQ(); renderStats();
     });
   });
-  list.querySelectorAll('.habit-del').forEach((btn) => {
+  list.querySelectorAll('.habit-del').forEach(btn =>
     btn.addEventListener('click', () => {
-      const id = btn.dataset.del;
-      store.habitsList = store.habitsList.filter((h) => h.id !== id);
-      delete store.habitsDone[id];
-      persist(); renderHabits(); renderStats();
-    });
-  });
+      store.habitsList = store.habitsList.filter(h => h.id !== btn.dataset.del);
+      delete store.habitsDone[btn.dataset.del];
+      persist(); renderHabits(); renderHabitsHQ(); renderStats();
+    }));
 }
 
-document.getElementById('habit-add').addEventListener('submit', (e) => {
+document.getElementById('habit-add').addEventListener('submit', e => {
   e.preventDefault();
-  const input = document.getElementById('habit-input');
-  const label = input.value.trim();
-  if (!label) return;
-  store.habitsList.push({ id: 'h' + Date.now(), emoji: '•', label });
-  input.value = '';
-  persist(); renderHabits(); renderStats();
+  const inp = document.getElementById('habit-input');
+  const lbl = inp.value.trim(); if (!lbl) return;
+  store.habitsList.push({ id: 'h' + Date.now(), emoji: autoEmoji(lbl), label: lbl });
+  inp.value = '';
+  persist(); renderHabits(); renderHabitsHQ(); renderStats();
 });
 
 document.getElementById('reset-habits').addEventListener('click', () => {
-  store.habitsDone = {};
-  persist(); renderHabits(); renderStats();
+  store.habitsDone = {}; persist(); renderHabits(); renderHabitsHQ(); renderStats();
 });
 
-// ── Milestones (editable + date stamp) ───────────────────
-function renderMilestones() {
-  const box = document.getElementById('milestones');
-  box.innerHTML = DEFAULT_MILESTONES.map((d) => {
+// ── Habits — health page (mirror, check-only) ─────────────
+function renderHabitsHQ() {
+  const list = document.getElementById('hq-habit-list'); if (!list) return;
+  const total = store.habitsList.length;
+  const done  = Object.values(store.habitsDone || {}).filter(Boolean).length;
+  const fill  = document.getElementById('hq-fill');
+  const count = document.getElementById('hq-count');
+  if (fill)  fill.style.width  = total ? `${(done / total) * 100}%` : '0%';
+  if (count) count.textContent = `${done}/${total}`;
+
+  list.innerHTML = store.habitsList.map(h => `
+    <div class="habit ${store.habitsDone[h.id] ? 'done' : ''}" data-id="${h.id}">
+      <span class="habit-emoji">${h.emoji || '✅'}</span>
+      <span class="habit-label">${escapeHTML(h.label)}</span>
+      <span class="check">✓</span>
+    </div>`).join('');
+
+  list.querySelectorAll('.habit').forEach(el =>
+    el.addEventListener('click', () => {
+      const id = el.dataset.id;
+      const h  = store.habitsList.find(x => x.id === id);
+      if (store.habitsDone[id]) { delete store.habitsDone[id]; }
+      else { store.habitsDone[id] = true; if (h) toast(`${h.emoji || '✓'} ${h.label}`, 'green'); }
+      persist(); renderHabitsHQ(); renderHabits(); renderStats();
+    }));
+}
+
+// ── Milestones ────────────────────────────────────────────
+function buildMilestonesHTML() {
+  return DEFAULT_MILESTONES.map(d => {
     const m = store.milestones[d.id];
-    const dateStr = m.hit && m.date
+    const ds = m.hit && m.date
       ? new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
       : '';
     return `
@@ -205,238 +471,446 @@ function renderMilestones() {
         <span class="ms-dot"></span>
         <div class="ms-info">
           <div class="ms-label">${escapeHTML(m.label)}</div>
-          <div class="ms-sub">${m.hit && dateStr ? 'Hit ' + dateStr : escapeHTML(m.sub || '')}</div>
+          <div class="ms-sub">${m.hit && ds ? 'Hit ' + ds : escapeHTML(m.sub || '')}</div>
         </div>
-        <button class="ms-edit" data-edit="${d.id}" title="Rename" aria-label="Rename">✎</button>
+        <button class="ms-edit" data-edit="${d.id}" title="Rename">✎</button>
         <span class="ms-tag">${m.hit ? '✓ Hit it' : 'mark hit'}</span>
       </div>`;
   }).join('');
+}
 
-  box.querySelectorAll('.milestone').forEach((el) => {
-    el.addEventListener('click', (e) => {
-      if (e.target.closest('.ms-edit')) return;
+function bindMilestones(id) {
+  const box = document.getElementById(id); if (!box) return;
+  box.querySelectorAll('.milestone').forEach(el =>
+    el.addEventListener('click', e => {
+      if (e.target.closest('.ms-edit') || e.target.closest('.ms-inline-input')) return;
       const m = store.milestones[el.dataset.id];
-      m.hit = !m.hit;
-      m.date = m.hit ? new Date().toISOString() : null;
+      m.hit = !m.hit; m.date = m.hit ? new Date().toISOString() : null;
+      if (m.hit) toast(`🎯 ${m.label}`, 'brand');
       persist(); renderMilestones(); renderStats();
-    });
+    }));
+  box.querySelectorAll('.ms-edit').forEach(btn =>
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const lbl = btn.closest('.milestone').querySelector('.ms-label');
+      const m   = store.milestones[btn.dataset.edit];
+      const inp = document.createElement('input');
+      inp.className = 'ms-inline-input'; inp.value = m.label;
+      lbl.replaceWith(inp); inp.focus(); inp.select();
+      const commit = () => { const v = inp.value.trim(); if (v) { m.label = v; persist(); } renderMilestones(); };
+      inp.addEventListener('blur', commit);
+      inp.addEventListener('keydown', ev => {
+        if (ev.key === 'Enter')  { ev.preventDefault(); inp.blur(); }
+        if (ev.key === 'Escape') renderMilestones();
+      });
+    }));
+}
+
+function renderMilestones() {
+  const html = buildMilestonesHTML();
+  ['milestones', 'ms-income'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.innerHTML = html; bindMilestones(id); }
   });
-  box.querySelectorAll('.ms-edit').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const m = store.milestones[btn.dataset.edit];
-      const next = prompt('Rename milestone:', m.label);
-      if (next && next.trim()) { m.label = next.trim(); persist(); renderMilestones(); }
-    });
-  });
 }
 
-// ── AI Chat drawer ───────────────────────────────────────
-let activeSpace = null;
-
-function openSpace(key) {
-  activeSpace = key;
-  const sp = SPACES[key];
-  const drawer = document.getElementById('drawer');
-  drawer.style.setProperty('--accent', sp.accent);
-  drawer.classList.add('open');
-  drawer.setAttribute('aria-hidden', 'false');
-  document.getElementById('drawer-scrim').classList.add('show');
-  document.getElementById('drawer-icon').textContent = sp.icon;
-  document.getElementById('drawer-name').textContent = sp.name;
-  document.getElementById('drawer-sub').textContent = sp.sub;
-
-  const quick = document.getElementById('chat-quick');
-  quick.innerHTML = sp.quick.map((q, i) => `<button class="qbtn" data-q="${i}">${q.label}</button>`).join('');
-  quick.querySelectorAll('.qbtn').forEach((b) =>
-    b.addEventListener('click', () => sendMessage(sp.quick[b.dataset.q].text)));
-
-  renderChat();
-  document.getElementById('chat-text').focus();
-}
-
-function closeDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('drawer').setAttribute('aria-hidden', 'true');
-  document.getElementById('drawer-scrim').classList.remove('show');
-  activeSpace = null;
-}
-
-function renderChat() {
-  const box = document.getElementById('chat-messages');
-  const history = store.chats[activeSpace] || [];
-  if (!history.length) {
-    box.innerHTML = `<div class="chat-empty">Ask a question or tap a quick action below to start.</div>`;
-  } else {
-    box.innerHTML = history.map((m) =>
-      `<div class="bubble ${m.role === 'user' ? 'me' : 'ai'}">${m.role === 'user' ? escapeHTML(m.text) : renderMarkdown(m.text)}</div>`
-    ).join('');
-  }
-  box.scrollTop = box.scrollHeight;
-}
-
-async function sendMessage(text) {
-  text = (text || '').trim();
-  if (!text || !activeSpace) return;
-  const sp = SPACES[activeSpace];
-  if (!store.chats[activeSpace]) store.chats[activeSpace] = [];
-  const history = store.chats[activeSpace];
-
-  history.push({ role: 'user', text });
-  persist();
-  renderChat();
-
-  // typing indicator
-  const box = document.getElementById('chat-messages');
-  box.insertAdjacentHTML('beforeend', `<div class="bubble ai typing" id="typing"><span></span><span></span><span></span></div>`);
-  box.scrollTop = box.scrollHeight;
-
-  // Cap history sent to the model (cost control) — last 12 turns.
-  const sent = history.slice(-12).map((m) => ({ role: m.role, text: m.text }));
-
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ system: sp.system, messages: sent }),
-    });
-    const data = await res.json();
-    document.getElementById('typing')?.remove();
-    if (!res.ok) {
-      history.push({ role: 'model', text: `⚠️ ${data.error || 'Something went wrong.'}` });
-    } else {
-      history.push({ role: 'model', text: data.text });
-    }
-  } catch {
-    document.getElementById('typing')?.remove();
-    history.push({ role: 'model', text: '⚠️ Could not reach the AI. If you just opened this from a file, it only works once deployed to Vercel.' });
-  }
-  persist();
-  renderChat();
-}
-
-document.getElementById('chat-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const ta = document.getElementById('chat-text');
-  sendMessage(ta.value);
-  ta.value = '';
-  ta.style.height = 'auto';
-});
-document.getElementById('chat-text').addEventListener('input', (e) => {
-  e.target.style.height = 'auto';
-  e.target.style.height = Math.min(e.target.scrollHeight, 140) + 'px';
-});
-document.getElementById('chat-text').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); document.getElementById('chat-form').requestSubmit(); }
-});
-document.getElementById('chat-clear').addEventListener('click', () => {
-  if (activeSpace) { store.chats[activeSpace] = []; persist(); renderChat(); }
-});
-document.getElementById('drawer-close').addEventListener('click', closeDrawer);
-document.getElementById('drawer-scrim').addEventListener('click', closeDrawer);
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
-
-document.querySelectorAll('.pillar').forEach((p) =>
-  p.addEventListener('click', () => openSpace(p.dataset.space)));
-
-// ── Daily Brief ──────────────────────────────────────────
-function briefCard(type) { return document.querySelector(`.brief-card[data-brief="${type}"]`); }
-
-function renderBrief(type) {
-  const card = briefCard(type);
-  const body = card.querySelector('[data-body]');
-  const tsEl = card.querySelector('[data-ts]');
-  const cached = store.briefs[type];
-
-  if (!cached || !cached.items || !cached.items.length) {
-    body.innerHTML = `<div class="brief-empty">No brief yet — tap ↻ to generate.</div>`;
-    tsEl.textContent = '';
-    return;
-  }
-  tsEl.textContent = 'Updated ' + new Date(cached.ts).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-  body.innerHTML = cached.items.map((it) => `
-    <div class="brief-item">
-      <div class="bi-title">${escapeHTML(it.title || '')}</div>
-      <div class="bi-insight">${escapeHTML(it.insight || '')}</div>
-      <div class="bi-action"><span>Do this:</span> ${escapeHTML(it.action || '')}</div>
+// ── Workout plan renderer ─────────────────────────────────
+function renderWorkoutPlan() {
+  const el = document.getElementById('workout-plan'); if (!el) return;
+  el.innerHTML = WORKOUT_PLAN.map(s => `
+    <div class="workout-session" style="--ws-color:${s.color}">
+      <div class="ws-header">
+        <span class="ws-day">${s.day}</span>
+        <span class="ws-focus">${s.focus}</span>
+        <span class="ws-badge">${s.duration}</span>
+      </div>
+      <div class="ws-exercises">
+        ${s.exercises.map(ex => `
+          <div class="ws-ex-name">▸ ${escapeHTML(ex.name)}</div>
+          <div class="ws-ex-sets">${escapeHTML(ex.sets)}</div>
+          <div class="ws-ex-note">${escapeHTML(ex.note)}</div>`).join('')}
+      </div>
+      <button class="ws-ai-btn" data-day="${escapeHTML(s.day)}" data-focus="${escapeHTML(s.focus)}">
+        Customize ${s.day} with AI →
+      </button>
     </div>`).join('');
+
+  el.querySelectorAll('.ws-ai-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const msg = `I want to customize my ${btn.dataset.day} workout (${btn.dataset.focus}). Ask me about my available equipment, any injuries, and fitness level — then build me a personalized version of this session.`;
+      openChat('health', msg);
+    });
+  });
 }
 
-async function loadBrief(type, force = false) {
-  const cached = store.briefs[type];
-  const fresh = cached && cached.ts && (Date.now() - cached.ts < BRIEF_MAX_AGE);
-  if (fresh && !force) { renderBrief(type); return; }
+// ── Nutrition card renderer ───────────────────────────────
+function renderNutritionCard() {
+  const el = document.getElementById('nutrition-card'); if (!el) return;
+  el.innerHTML = `
+    <div class="macro-grid">
+      ${NUTRITION.macros.map(m => `
+        <div class="macro-item" style="--mc:${m.color}">
+          <div><span class="macro-num">${m.value}</span><span class="macro-unit">${m.unit}</span></div>
+          <div class="macro-label">${m.label}</div>
+          <div class="macro-note">${m.note}</div>
+        </div>`).join('')}
+    </div>
+    <p style="font-size:.72rem;color:var(--faint);margin-bottom:10px">${escapeHTML(NUTRITION.note)}</p>
+    <div class="nutrition-tips">
+      ${NUTRITION.tips.map(t => `<div class="nutrition-tip">${escapeHTML(t)}</div>`).join('')}
+    </div>
+    <button class="nutrition-ai-btn" id="meal-plan-btn">Build me a personalized meal plan →</button>`;
 
-  const card = briefCard(type);
-  const body = card.querySelector('[data-body]');
-  card.classList.add('loading');
-  body.innerHTML = `<div class="brief-skel"></div><div class="brief-skel"></div><div class="brief-skel"></div>`;
+  document.getElementById('meal-plan-btn').addEventListener('click', () => {
+    openChat('health', "I want a personalized weekly meal plan for fat loss. Ask me about my food preferences, restrictions, cooking time, and schedule before building it.");
+  });
+}
 
+// ── Code challenge renderer ───────────────────────────────
+function renderCodeChallenge() {
+  const el = document.getElementById('challenge-card'); if (!el) return;
+  const idx = DAY_NUM % CODE_CHALLENGES.length;
+  const c   = CODE_CHALLENGES[idx];
+  el.innerHTML = `
+    <div class="cc-head">
+      <span class="cc-type">Daily Challenge</span>
+      <span class="cc-badge ${c.difficulty}">${c.difficulty}</span>
+    </div>
+    <div class="cc-title">${escapeHTML(c.title)}</div>
+    <div class="cc-body">${escapeHTML(c.desc)}</div>
+    <div class="cc-tags">${c.tags.map(t => `<span class="cc-tag">${escapeHTML(t)}</span>`).join('')}</div>
+    <button class="cc-action" id="challenge-help-btn">Get a hint →</button>`;
+
+  document.getElementById('challenge-help-btn').addEventListener('click', () => {
+    openChat('code', `I'm working on the "${c.title}" coding challenge. Here's the problem: "${c.desc}". I'm a beginner — walk me through how to think about this, give me a small hint without giving away the full answer.`);
+  });
+
+  const hint = document.getElementById('challenge-hint');
+  if (hint) hint.textContent = `Challenge ${idx + 1} of ${CODE_CHALLENGES.length}`;
+}
+
+// ── Project ideas renderer ────────────────────────────────
+function renderProjectCard() {
+  const el = document.getElementById('project-card'); if (!el) return;
+  const idx = Math.floor(DAY_NUM / 3) % PROJECT_IDEAS.length; // rotates every 3 days
+  const p   = PROJECT_IDEAS[idx];
+  el.innerHTML = `
+    <div class="cc-head">
+      <span class="cc-type">Project Idea</span>
+      <span class="cc-badge project">~${p.hours}h build</span>
+    </div>
+    <div class="cc-title">${escapeHTML(p.title)}</div>
+    <div class="cc-body">${escapeHTML(p.desc)}</div>
+    <div class="cc-steps">${p.steps.map(s => `<div class="cc-step">${escapeHTML(s)}</div>`).join('')}</div>
+    <button class="cc-action" id="project-help-btn">Start this project →</button>`;
+
+  document.getElementById('project-help-btn').addEventListener('click', () => {
+    openChat('code', `I want to build "${p.title}". Here's the description: "${p.desc}". I'm a beginner. Walk me through step one — what to build first, what HTML/JS I need, and how to get started right now.`);
+  });
+}
+
+// ── Daily quote renderer ──────────────────────────────────
+function renderQuote() {
+  const el = document.getElementById('quote-card'); if (!el) return;
+  const q  = QUOTES[store.quoteIdx % QUOTES.length];
+  el.innerHTML = `
+    <div class="quote-mark">"</div>
+    <div class="quote-text">${escapeHTML(q.text)}</div>
+    <div class="quote-author">— ${escapeHTML(q.author)}</div>
+    <div class="quote-nav">
+      <button class="quote-btn" id="prev-quote">← Prev</button>
+      <button class="quote-btn" id="next-quote">Next →</button>
+      <button class="quote-btn" id="more-quotes" style="margin-left:auto">More like this →</button>
+    </div>`;
+
+  document.getElementById('next-quote').addEventListener('click', () => {
+    store.quoteIdx = (store.quoteIdx + 1) % QUOTES.length; persist(); renderQuote();
+  });
+  document.getElementById('prev-quote').addEventListener('click', () => {
+    store.quoteIdx = (store.quoteIdx - 1 + QUOTES.length) % QUOTES.length; persist(); renderQuote();
+  });
+  document.getElementById('more-quotes').addEventListener('click', () => {
+    openChat('growth', "Give me 3 powerful quotes about discipline, fatherhood, or building a great life. For each one, tell me why it resonates for someone in my situation.");
+  });
+}
+
+// ── Parenting tip renderer ────────────────────────────────
+function renderParentingTip() {
+  const el = document.getElementById('tip-card'); if (!el) return;
+  const t  = PARENTING_TIPS[store.tipIdx % PARENTING_TIPS.length];
+  el.innerHTML = `
+    <div class="cc-head">
+      <span class="cc-type">Parenting Tip</span>
+      <span class="tip-category">${escapeHTML(t.category)}</span>
+    </div>
+    <div class="cc-title" style="font-size:.95rem;line-height:1.55">${escapeHTML(t.tip)}</div>
+    <div style="display:flex;gap:8px;margin-top:auto;padding-top:8px">
+      <button class="cc-action secondary" id="next-tip">Next tip →</button>
+      <button class="cc-action" id="ask-parenting">Ask AI →</button>
+    </div>`;
+
+  document.getElementById('next-tip').addEventListener('click', () => {
+    store.tipIdx = (store.tipIdx + 1) % PARENTING_TIPS.length; persist(); renderParentingTip();
+  });
+  document.getElementById('ask-parenting').addEventListener('click', () => {
+    openChat('growth', `I just read this parenting tip: "${t.tip}" — I want to know more about this. What should I know, and what's the most practical thing I can do right now to prepare?`);
+  });
+}
+
+// ── Baby prep checklist ───────────────────────────────────
+function renderBabyPrep() {
+  const el = document.getElementById('prep-card'); if (!el) return;
+  const done  = BABY_PREP.filter(i => store.babyPrep[i.id]).length;
+  const total = BABY_PREP.length;
+  const pct   = total ? Math.round((done / total) * 100) : 0;
+
+  el.innerHTML = `
+    <div class="prep-title">Baby Prep Checklist</div>
+    <div class="prep-progress-row">
+      <div class="prep-progress-bar"><div class="prep-progress-fill" style="width:${pct}%"></div></div>
+      <span class="prep-progress-label">${done}/${total} done</span>
+    </div>
+    <div class="prep-list">
+      ${BABY_PREP.map(item => `
+        <div class="prep-item ${store.babyPrep[item.id] ? 'done' : ''}" data-id="${item.id}">
+          <span class="prep-check">✓</span>
+          <span class="prep-label">${escapeHTML(item.label)}</span>
+          <span class="prep-cat">${escapeHTML(item.cat)}</span>
+        </div>`).join('')}
+    </div>`;
+
+  el.querySelectorAll('.prep-item').forEach(row =>
+    row.addEventListener('click', () => {
+      const id = row.dataset.id;
+      store.babyPrep[id] = !store.babyPrep[id];
+      if (store.babyPrep[id]) toast('✓ Checked off', 'green');
+      persist(); renderBabyPrep();
+    }));
+}
+
+// ── HN news helpers ───────────────────────────────────────
+const NEWS_TTL = 15 * 60 * 1000;
+
+async function fetchHN(query, n = 10) {
+  const r = await fetch(`https://hn.algolia.com/api/v1/search?query=${encodeURIComponent(query)}&tags=story&hitsPerPage=${n}`);
+  if (!r.ok) throw new Error('HN fetch failed');
+  return (await r.json()).hits || [];
+}
+
+function ago(d) {
+  const s = (Date.now() - new Date(d)) / 1000;
+  if (s < 3600)  return `${Math.floor(s / 60)}m`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h`;
+  return `${Math.floor(s / 86400)}d`;
+}
+
+function domain(url) {
+  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return 'news.ycombinator.com'; }
+}
+
+function hnLink(item) { return item.url || `https://news.ycombinator.com/item?id=${item.objectID}`; }
+
+// Headlines (home)
+async function loadHeadlines() {
+  const grid = document.getElementById('headlines-grid');
+  const hint = document.getElementById('hl-hint');
+  const c    = store.news.home;
+  if (c && Date.now() - c.ts < NEWS_TTL) { renderHeadlines(c.items); hint.textContent = 'live · Hacker News'; return; }
+  grid.innerHTML = Array(6).fill('<div class="hl-skel"></div>').join('');
+  hint.textContent = 'loading…';
   try {
-    const res = await fetch(`/api/feed?type=${type}`);
-    const data = await res.json();
-    if (!res.ok || !data.items || !data.items.length) {
-      body.innerHTML = `<div class="brief-empty">${escapeHTML(data.error || 'Could not generate the brief. Tap ↻ to retry.')}</div>`;
-    } else {
-      store.briefs[type] = { items: data.items, ts: Date.now() };
-      persist();
-      renderBrief(type);
-    }
+    const items = await fetchHN(NEWS_QUERIES.home, 6);
+    store.news.home = { items, ts: Date.now() }; persist();
+    renderHeadlines(items); hint.textContent = 'live · Hacker News';
   } catch {
-    body.innerHTML = `<div class="brief-empty">Could not reach the AI. This works once deployed to Vercel with your key set.</div>`;
-  } finally {
-    card.classList.remove('loading');
+    grid.innerHTML = '<p style="grid-column:1/-1;padding:12px;font-size:.82rem;color:var(--muted)">Headlines load once deployed to Vercel.</p>';
+    hint.textContent = 'offline';
   }
 }
 
-document.querySelectorAll('.brief-refresh').forEach((btn) =>
-  btn.addEventListener('click', () => {
-    const type = btn.closest('.brief-card').dataset.brief;
-    loadBrief(type, true);
-  }));
+function renderHeadlines(items) {
+  const grid = document.getElementById('headlines-grid');
+  if (!items?.length) { grid.innerHTML = '<p style="color:var(--muted);font-size:.82rem">No stories right now.</p>'; return; }
+  grid.innerHTML = items.slice(0, 6).map(i => `
+    <a class="hl-card" href="${hnLink(i)}" target="_blank" rel="noopener">
+      <div class="hl-meta"><span class="hl-tag">HN</span><span class="hl-pts">▲ ${i.points || 0}</span><span class="hl-time">${ago(i.created_at)} ago</span></div>
+      <div class="hl-title">${escapeHTML(i.title || '')}</div>
+      <div class="hl-domain">${domain(i.url || '')}</div>
+    </a>`).join('');
+}
 
-// ── Helpers ──────────────────────────────────────────────
+// Pillar news feeds
+async function loadNews(page) {
+  const el = document.getElementById('news-' + page); if (!el) return;
+  const c  = store.news[page];
+  if (c && Date.now() - c.ts < NEWS_TTL) { renderNews(el, c.items); return; }
+  el.innerHTML = Array(6).fill('<div class="news-skel"></div>').join('');
+  try {
+    const items = await fetchHN(NEWS_QUERIES[page] || NEWS_QUERIES.home, 12);
+    store.news[page] = { items, ts: Date.now() }; persist();
+    renderNews(el, items);
+  } catch {
+    el.innerHTML = '<div class="news-empty">News feed loads once deployed to Vercel.</div>';
+  }
+}
+
+function renderNews(el, items) {
+  if (!items?.length) { el.innerHTML = '<div class="news-empty">No stories found.</div>'; return; }
+  el.innerHTML = items.map(i => `
+    <a class="news-item" href="${hnLink(i)}" target="_blank" rel="noopener">
+      <div class="news-title">${escapeHTML(i.title || '')}</div>
+      <div class="news-meta">
+        <span class="news-domain">${domain(i.url || '')}</span>
+        <span class="news-pts">▲ ${i.points || 0}</span>
+        <span class="news-age">${ago(i.created_at)} ago</span>
+      </div>
+    </a>`).join('');
+}
+
+// ── Inline chat panel ─────────────────────────────────────
+function initChatPanel(id, key) {
+  const el = document.getElementById(id);
+  if (!el || el.dataset.init === key) return;
+  el.dataset.init = key;
+  const sp = SPACES[key];
+  el.style.setProperty('--cp-accent', sp.accent);
+
+  el.innerHTML = `
+    <div class="cp-head">
+      <div class="cp-icon">${sp.icon}</div>
+      <div class="cp-info"><div class="cp-name">${sp.name}</div><div class="cp-sub">${sp.sub}</div></div>
+      <button class="cp-clear" id="cpc-${key}">Clear</button>
+    </div>
+    <div class="cp-quick" id="cpq-${key}">
+      ${sp.quick.map((q, i) => `<button class="cp-qbtn" data-q="${i}">${q.label}</button>`).join('')}
+    </div>
+    <div class="cp-messages" id="cpm-${key}"></div>
+    <form class="cp-input" id="cpf-${key}">
+      <textarea rows="1" placeholder="Ask ${sp.name}…" id="cpt-${key}"></textarea>
+      <button type="submit" class="cp-send"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+    </form>`;
+
+  document.getElementById('cpq-' + key).querySelectorAll('.cp-qbtn').forEach(b =>
+    b.addEventListener('click', () => sendChat(key, sp.quick[+b.dataset.q].text)));
+
+  document.getElementById('cpc-' + key).addEventListener('click', () => {
+    store.chats[key] = []; persist(); renderChat(key);
+  });
+
+  const form = document.getElementById('cpf-' + key);
+  const ta   = document.getElementById('cpt-' + key);
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const t = ta.value.trim(); if (!t) return;
+    ta.value = ''; ta.style.height = 'auto';
+    sendChat(key, t);
+  });
+  ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 110) + 'px'; });
+  ta.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); } });
+
+  renderChat(key);
+}
+
+function renderChat(key) {
+  const box = document.getElementById('cpm-' + key); if (!box) return;
+  const h   = store.chats[key] || [];
+  box.innerHTML = h.length
+    ? h.map(m => `<div class="bubble ${m.role === 'user' ? 'me' : 'ai'}">${m.role === 'user' ? escapeHTML(m.text) : md(m.text)}</div>`).join('')
+    : `<div class="cp-empty">Ask a question or tap a quick action to start chatting with ${SPACES[key].name}.</div>`;
+  box.scrollTop = box.scrollHeight;
+}
+
+async function sendChat(key, text) {
+  text = text.trim(); if (!text) return;
+  const sp = SPACES[key];
+  if (!store.chats[key]) store.chats[key] = [];
+  store.chats[key].push({ role: 'user', text }); persist(); renderChat(key);
+
+  const box = document.getElementById('cpm-' + key);
+  if (box) { box.insertAdjacentHTML('beforeend', `<div class="bubble ai typing" id="ty-${key}"><span></span><span></span><span></span></div>`); box.scrollTop = box.scrollHeight; }
+
+  try {
+    const res  = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ system: sp.system, messages: store.chats[key].slice(-12).map(m => ({ role: m.role, text: m.text })) }) });
+    const data = await res.json();
+    document.getElementById('ty-' + key)?.remove();
+    store.chats[key].push({ role: 'model', text: res.ok ? data.text : `⚠️ ${data.error || 'Something went wrong.'}` });
+  } catch {
+    document.getElementById('ty-' + key)?.remove();
+    store.chats[key].push({ role: 'model', text: '⚠️ AI chat only works on Vercel — not from a local file.' });
+  }
+  persist(); renderChat(key);
+}
+
+// Helper to open a chat panel and send a message from content cards
+function openChat(spaceKey, message) {
+  navigate(spaceKey);
+  setTimeout(() => sendChat(spaceKey, message), 100);
+}
+
+// ── Helpers ───────────────────────────────────────────────
 function escapeHTML(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 }
 
-// Tiny markdown: **bold**, *italic*, `code`, bullet lines, line breaks.
-function renderMarkdown(text) {
-  let html = escapeHTML(text);
-  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/(^|[^*])\*([^*\n]+?)\*/g, '$1<em>$2</em>');
-  html = html.replace(/`([^`]+?)`/g, '<code>$1</code>');
-  html = html.replace(/^\s*[-*]\s+(.*)$/gm, '<li>$1</li>');
-  html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>');
-  html = html.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
-  html = html.replace(/<\/ul><br>/g, '</ul>').replace(/<br><ul>/g, '<ul>');
-  return html;
+function md(text) {
+  let h = escapeHTML(text);
+  h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  h = h.replace(/(^|[^*])\*([^*\n]+?)\*/g, '$1<em>$2</em>');
+  h = h.replace(/`([^`]+?)`/g, '<code>$1</code>');
+  h = h.replace(/^\s*[-*]\s+(.*)$/gm, '<li>$1</li>');
+  h = h.replace(/((?:<li>[^\n]*<\/li>\n?)+)/g, '<ul>$1</ul>');
+  h = h.replace(/\n{2,}/g, '<br><br>').replace(/\n/g, '<br>');
+  h = h.replace(/<\/ul><br>/g, '</ul>').replace(/<br><ul>/g, '<ul>');
+  return h;
 }
 
-// ── Mobile sidebar + scrollspy ───────────────────────────
+// ── Router ────────────────────────────────────────────────
+const PAGES = ['home', 'income', 'health', 'markets', 'code', 'growth'];
+
+function navigate(page) {
+  if (!PAGES.includes(page)) page = 'home';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page)?.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.page === page));
+  history.replaceState(null, '', '#' + page);
+
+  switch (page) {
+    case 'home':
+      renderStats(); renderHabits(); renderMilestones(); loadHeadlines(); break;
+    case 'income':
+      renderMilestones(); initChatPanel('cp-income', 'income'); loadNews('income'); break;
+    case 'health':
+      renderHabitsHQ(); renderWorkoutPlan(); renderNutritionCard();
+      initChatPanel('cp-health', 'health'); loadNews('health'); break;
+    case 'markets':
+      initChatPanel('cp-markets', 'markets'); loadNews('markets'); break;
+    case 'code':
+      renderCodeChallenge(); renderProjectCard();
+      initChatPanel('cp-code', 'code'); loadNews('code'); break;
+    case 'growth':
+      document.getElementById('baby-big').textContent = Math.max(0, Math.ceil((BABY_DAY - new Date()) / 86400000));
+      renderQuote(); renderParentingTip(); renderBabyPrep();
+      initChatPanel('cp-growth', 'growth'); loadNews('growth'); break;
+  }
+  closeSidebar();
+}
+
+// ── Nav + pillar click handlers ───────────────────────────
+document.querySelectorAll('.nav-link').forEach(l =>
+  l.addEventListener('click', e => { e.preventDefault(); navigate(l.dataset.page); }));
+
+document.querySelectorAll('.pillar[data-page]').forEach(p =>
+  p.addEventListener('click', () => navigate(p.dataset.page)));
+
+// ── Mobile sidebar ────────────────────────────────────────
 const sidebar = document.getElementById('sidebar');
-const scrim = document.getElementById('scrim');
+const scrim   = document.getElementById('scrim');
 function closeSidebar() { sidebar.classList.remove('open'); scrim.classList.remove('show'); }
 document.getElementById('menu-btn').addEventListener('click', () => { sidebar.classList.add('open'); scrim.classList.add('show'); });
 scrim.addEventListener('click', closeSidebar);
 
-const navLinks = [...document.querySelectorAll('.nav-link')];
-navLinks.forEach((l) => l.addEventListener('click', closeSidebar));
-const spyTargets = ['top', 'habits', 'goals', 'feed'].map((id) => document.getElementById(id)).filter(Boolean);
-const spy = new IntersectionObserver((entries) => {
-  entries.forEach((e) => {
-    if (!e.isIntersecting) return;
-    navLinks.forEach((l) => l.classList.toggle('active', l.dataset.target === e.target.id));
-  });
-}, { rootMargin: '-45% 0px -50% 0px' });
-spyTargets.forEach((t) => spy.observe(t));
-
-// ── Init ─────────────────────────────────────────────────
+// ── Boot ──────────────────────────────────────────────────
 tick();
 setInterval(tick, 60_000);
-renderStats();
-renderHabits();
-renderMilestones();
-renderBrief('business');
-renderBrief('health');
-loadBrief('business');
-loadBrief('health');
+const start = PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
+navigate(start);

@@ -897,7 +897,7 @@ function md(text) {
 }
 
 // ── Router ────────────────────────────────────────────────
-const PAGES = ['home', 'income', 'health', 'markets', 'code', 'growth'];
+const PAGES = ['home', 'income', 'health', 'markets', 'code', 'growth', 'tools'];
 
 function navigate(page) {
   if (!PAGES.includes(page)) page = 'home';
@@ -923,6 +923,8 @@ function navigate(page) {
       document.getElementById('baby-big').textContent = Math.max(0, Math.ceil((BABY_DAY - new Date()) / 86400000));
       renderQuote(); renderParentingTip(); renderBabyPrep();
       initChatPanel('cp-growth', 'growth'); loadNews('growth'); break;
+    case 'tools':
+      break;
   }
   closeSidebar();
 }

@@ -196,7 +196,7 @@ a { text-decoration: none; color: inherit; }
 .hint { font-size: .7rem; color: var(--faint); }
 
 /* Pillar nav grid */
-.pillar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .pillar {
   --pa: var(--brand);
   background: var(--card);
@@ -513,13 +513,13 @@ a { text-decoration: none; color: inherit; }
 /* ═══════════════════════════
    TOOLS PAGE
 ═══════════════════════════ */
-.tools-page  { padding: 0; }
+.tools-page  { max-width: 1040px; margin: 0 auto; padding: 0; }
 .tools-head  { padding: 24px 24px 4px; }
 .tools-grid  {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
-  padding: 16px 24px 48px;
+  padding: 16px 24px 60px;
 }
 .tool-card {
   display: flex;

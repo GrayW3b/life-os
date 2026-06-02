@@ -1,3 +1,6 @@
-.claude/
+# Claude Code — ignore machine-specific files, track settings.json
+.claude/settings.local.json
+.claude/launch.json
 .DS_Store
 Thumbs.db
+SESSION_CONTEXT.md

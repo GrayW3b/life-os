@@ -13,4 +13,7 @@
   Growth, Tools) could map to an agent role to keep the dashboard moving
   without active work._
 
+- [ ] Look into a **desktop command center** — a single local hub to drive
+  the agents / Life OS from the computer.
+
 _Logged 2026-06-05 from a Claude Code web session._

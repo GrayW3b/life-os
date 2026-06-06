@@ -11,147 +11,164 @@
   <header class="topbar">
     <div class="brand">
       <span class="logo">⬡</span>
-      <span class="brand-name">LIFE OS</span>
+      <span class="brand-name">LIFE&nbsp;OS</span>
       <span class="brand-sub">COMMAND</span>
-    </div>
-    <div class="topbar-mid">
-      <span class="muted">primary engine</span>
-      <span class="pill"><span class="dot live"></span> KDP TOOL</span>
     </div>
     <div class="topbar-right">
       <span class="live-badge"><span class="dot live"></span> LIVE</span>
       <span id="clock" class="clock">--:--:--</span>
-      <span id="date" class="muted"></span>
+      <span id="date" class="muted small"></span>
     </div>
   </header>
 
-  <!-- ===== GRID ===== -->
   <main class="wall">
 
-    <!-- HERO: AUTOMATION PIPELINE -->
-    <section class="tile hero" data-drill="pipeline">
-      <div class="tile-head">
+    <!-- ===== PIPELINE / GLOBE (hero) ===== -->
+    <section class="panel globe-panel" data-drill="pipeline">
+      <div class="panel-head">
         <h2>Pipeline</h2>
-        <span class="src">engine: passive income</span>
+        <div class="carrier"><span class="muted small">primary engine</span>
+          <span class="carrier-badge">▦ KDP&nbsp;TOOL</span></div>
       </div>
-      <div class="hero-body">
-        <div class="orbit">
-          <div class="orbit-ring r1"></div>
-          <div class="orbit-ring r2"></div>
-          <div class="orbit-ring r3"></div>
-          <div class="orbit-core">
-            <span class="core-val">$0</span>
-            <span class="core-label">/ day</span>
+      <div class="globe-stage">
+        <canvas id="globe"></canvas>
+        <div class="route-list">
+          <div class="route-line"><span class="pin live"></span>
+            <div><b>KDP · Amazon US</b><span class="muted small">live · auto-publishing</span></div></div>
+          <div class="route-conn"></div>
+          <div class="route-line"><span class="pin build"></span>
+            <div><b>YouTube · Global</b><span class="muted small">building pipeline</span></div></div>
+          <div class="route-conn"></div>
+          <div class="route-line"><span class="pin queue"></span>
+            <div><b>Etsy · US / EU</b><span class="muted small">queued</span></div></div>
+        </div>
+        <div class="lead">
+          <span class="muted small">Latest payout lead time:</span>
+          <b class="lead-val">19 days</b>
+          <canvas id="leadChart"></canvas>
+        </div>
+      </div>
+      <span class="wm">life&nbsp;os</span>
+    </section>
+
+    <!-- ===== NEWS ===== -->
+    <section class="panel news-panel" data-drill="news">
+      <div class="panel-head"><h2>News</h2><span class="src">HN · live</span></div>
+      <div class="news-hero">
+        <div class="news-photo" id="newsPhoto"><span class="ph-label">LIVE FEED IMAGE</span></div>
+        <div class="news-hero-text">
+          <span class="kicker">TOP STORY</span>
+          <h3>Solo builders are shipping products faster with agent workflows</h3>
+          <p class="muted small">One operator, a roster of AI agents — the new shape of a small company.</p>
+        </div>
+      </div>
+      <div class="filmstrip">
+        <div class="film"></div><div class="film"></div><div class="film"></div>
+        <div class="film"></div><div class="film"></div><div class="film"></div>
+        <div class="film"></div><div class="film"></div>
+      </div>
+      <span class="wm">life&nbsp;os</span>
+    </section>
+
+    <!-- ===== ISSUES ===== -->
+    <section class="panel issues-panel" data-drill="issues">
+      <div class="panel-head"><h2>Issues</h2><span class="badge warn">1 comment</span></div>
+      <div class="issue-card">
+        <div class="issue-flag">●&nbsp;IN&nbsp;PROGRESS</div>
+        <h3>YouTube upload agent paused — blocked on API key</h3>
+        <p class="muted small label">Description</p>
+        <p class="small">Pipeline agent halted before render-upload. Add <code>YT_API_KEY</code>
+          in Vercel project settings to resume autonomous publishing.</p>
+        <div class="issue-stats">
+          <div><span class="is-ico">▦</span><b>3</b><span class="muted small">Agents</span></div>
+          <div><span class="is-ico">◷</span><b>2</b><span class="muted small">Tasks</span></div>
+          <div><span class="is-ico">⚑</span><b class="rose">1</b><span class="muted small">Blocked</span></div>
+        </div>
+        <div class="assignee"><span class="muted small">Latest update from</span>
+          <span class="ava"></span><b class="small">Pipeline Agent · 4 min ago</b></div>
+      </div>
+      <span class="wm">life&nbsp;os</span>
+    </section>
+
+    <!-- ===== INCOME (orders) ===== -->
+    <section class="panel small-panel" data-drill="income">
+      <div class="panel-head"><h2>Income</h2><span class="src">to $100 / day</span></div>
+      <div class="orders-body">
+        <div class="donut" style="--pct:0;--c:var(--amber)">
+          <div class="donut-c"><b>0%</b><span class="muted small">of goal</span></div>
+        </div>
+        <div class="orders-side">
+          <div class="kv"><span class="muted small">Today</span><b>$0</b></div>
+          <div class="kv"><span class="muted small">7-day avg</span><b>$0</b></div>
+          <div class="kv"><span class="muted small">Goal</span><b class="amber">$100</b></div>
+        </div>
+      </div>
+      <span class="wm">life&nbsp;os</span>
+    </section>
+
+    <!-- ===== AUTOMATION (production) ===== -->
+    <section class="panel prod-panel" data-drill="automation">
+      <div class="panel-head"><h2>Automation</h2><span class="src">all engines</span></div>
+      <div class="prod-grid">
+        <div class="prod-row">
+          <div class="donut sm" style="--pct:83;--c:var(--emerald)"><div class="donut-c"><b>83%</b></div></div>
+          <div class="prod-bars">
+            <div class="pb-name">KDP&nbsp;TOOL <span class="muted small">· uptime 99%</span></div>
+            <div class="pb"><span>Cover gen</span><i style="width:92%"></i><em>92%</em></div>
+            <div class="pb"><span>Interior</span><i style="width:78%"></i><em>78%</em></div>
+            <div class="pb"><span>Publish</span><i style="width:88%"></i><em>88%</em></div>
           </div>
-          <div class="orbit-node n1"><span class="nd live"></span>KDP</div>
-          <div class="orbit-node n2"><span class="nd build"></span>YouTube</div>
-          <div class="orbit-node n3"><span class="nd queue"></span>Etsy</div>
         </div>
-        <div class="hero-side">
-          <div class="kv"><span class="muted">North star</span><b>$100 / day</b></div>
-          <div class="kv"><span class="muted">Live stages</span><b>1 of 3</b></div>
-          <div class="kv"><span class="muted">Lead time to first payout</span><b class="accent">19 days</b></div>
-          <div class="trend">
-            <span class="muted small">Revenue trend · last 6 wks</span>
-            <svg viewBox="0 0 280 70" class="spark" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#6366f1" stop-opacity="0.35"/>
-                  <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
-                </linearGradient>
-              </defs>
-              <path d="M0,60 L46,58 L93,54 L140,50 L186,38 L233,30 L280,18"
-                    fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
-              <path d="M0,60 L46,58 L93,54 L140,50 L186,38 L233,30 L280,18 L280,70 L0,70 Z"
-                    fill="url(#g1)"/>
-            </svg>
+        <div class="prod-row">
+          <div class="donut sm" style="--pct:45;--c:var(--amber)"><div class="donut-c"><b>45%</b></div></div>
+          <div class="prod-bars">
+            <div class="pb-name">YOUTUBE <span class="muted small">· building</span></div>
+            <div class="pb"><span>Script</span><i style="width:70%"></i><em>70%</em></div>
+            <div class="pb"><span>Render</span><i style="width:40%"></i><em>40%</em></div>
+            <div class="pb amber-bar"><span>Upload</span><i style="width:12%"></i><em>12%</em></div>
+          </div>
+        </div>
+        <div class="prod-row">
+          <div class="donut sm" style="--pct:15;--c:var(--rose)"><div class="donut-c"><b>15%</b></div></div>
+          <div class="prod-bars">
+            <div class="pb-name">ETSY <span class="muted small">· queued</span></div>
+            <div class="pb"><span>Listings</span><i style="width:20%"></i><em>20%</em></div>
+            <div class="pb"><span>Mockups</span><i style="width:15%"></i><em>15%</em></div>
+            <div class="pb"><span>Fulfill</span><i style="width:8%"></i><em>8%</em></div>
           </div>
         </div>
       </div>
+      <span class="wm">life&nbsp;os</span>
     </section>
 
-    <!-- NEWS -->
-    <section class="tile news" data-drill="news">
-      <div class="tile-head"><h2>News</h2><span class="src">HN · live</span></div>
-      <div class="news-feat">
-        <div class="news-feat-tag">TOP STORY</div>
-        <h3>Solo founders shipping faster with agent workflows</h3>
-        <p class="muted small">Placeholder — wires to your existing HN Algolia feed.</p>
-      </div>
-      <ul class="news-list">
-        <li><span class="pts">312</span> Show HN: I automated my entire KDP pipeline</li>
-        <li><span class="pts">204</span> The economics of faceless YouTube channels</li>
-        <li><span class="pts">177</span> Etsy print-on-demand: what actually sells</li>
-        <li><span class="pts">88</span> Vanilla JS is having a moment</li>
-      </ul>
-    </section>
-
-    <!-- ISSUES / AGENT QUEUE -->
-    <section class="tile issues" data-drill="issues">
-      <div class="tile-head"><h2>Issues</h2><span class="badge warn">1 needs you</span></div>
-      <div class="issue-main">
-        <div class="issue-title">YouTube upload agent — blocked on API key</div>
-        <p class="muted small">Agent paused. Add <code>YT_API_KEY</code> in Vercel to resume.</p>
-      </div>
-      <div class="issue-stats">
-        <div><b>3</b><span class="muted">Agents</span></div>
-        <div><b>2</b><span class="muted">Tasks</span></div>
-        <div><b class="accent-rose">1</b><span class="muted">Blocked</span></div>
-      </div>
-      <div class="issue-foot muted small">Last update · Pipeline agent · 4 min ago</div>
-    </section>
-
-    <!-- BOTTOM ROW: INCOME -->
-    <section class="tile metric" data-drill="income">
-      <div class="tile-head"><h2>Income</h2><span class="src">to $100/day</span></div>
-      <div class="metric-body">
-        <div class="ring" style="--pct:0deg;">
-          <div class="ring-val">0%</div>
+    <!-- ===== OUTPUT (deliveries) ===== -->
+    <section class="panel out-panel" data-drill="output">
+      <div class="panel-head"><h2>Output</h2><span class="src">last 30 days</span></div>
+      <div class="out-body">
+        <div class="out-hero">
+          <div class="out-thumb"><span class="ph-label">ASSET</span></div>
+          <div class="out-num"><b>1,240</b><span class="muted small">total units shipped</span>
+            <b class="rose mt">312 <span class="muted small">pending</span></b></div>
         </div>
-        <div class="metric-kv">
-          <div><b>$0</b><span class="muted">today</span></div>
-          <div><b>$100</b><span class="muted">goal</span></div>
-        </div>
+        <canvas id="outChart"></canvas>
       </div>
-    </section>
-
-    <!-- BOTTOM ROW: HABITS -->
-    <section class="tile metric" data-drill="habits">
-      <div class="tile-head"><h2>Habits</h2><span class="src">today</span></div>
-      <div class="metric-body">
-        <div class="ring emerald" style="--pct:216deg;">
-          <div class="ring-val">60%</div>
-        </div>
-        <div class="metric-kv">
-          <div><b>3</b><span class="muted">done</span></div>
-          <div><b>5</b><span class="muted">total</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BOTTOM ROW: MILESTONES -->
-    <section class="tile metric wide" data-drill="milestones">
-      <div class="tile-head"><h2>Milestones</h2><span class="src">progress</span></div>
-      <div class="bars">
-        <div class="bar"><span class="bl">KDP launch</span><span class="bt"><i style="width:100%"></i></span><span class="bp">100%</span></div>
-        <div class="bar"><span class="bl">YouTube MVP</span><span class="bt"><i style="width:45%"></i></span><span class="bp">45%</span></div>
-        <div class="bar"><span class="bl">Etsy store</span><span class="bt"><i style="width:15%"></i></span><span class="bp">15%</span></div>
-        <div class="bar"><span class="bl">Baby prep</span><span class="bt"><i style="width:30%"></i></span><span class="bp">30%</span></div>
-      </div>
+      <span class="wm">life&nbsp;os</span>
     </section>
 
   </main>
 
-  <!-- DRILL-DOWN DRAWER (interactive cockpit stub) -->
+  <!-- drill-down drawer -->
   <div id="drawer" class="drawer">
     <div class="drawer-inner">
       <button id="drawer-close" class="drawer-close">✕</button>
       <h2 id="drawer-title">Tile</h2>
-      <p class="muted" id="drawer-body">Drill-down view. This is where real data + agent
-        controls land once we wire this tile up.</p>
+      <p class="muted" id="drawer-body"></p>
     </div>
   </div>
 
+  <script src="vendor/d3-array.min.js"></script>
+  <script src="vendor/d3-geo.min.js"></script>
+  <script src="vendor/chart.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -4,165 +4,220 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Life OS — Command Center</title>
+  <link rel="stylesheet" href="fonts.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="bg-grid"></div>
+  <div class="bg-vignette"></div>
+
   <!-- ===== TOP BAR ===== -->
   <header class="topbar">
     <div class="brand">
-      <span class="logo">⬡</span>
-      <span class="brand-name">LIFE&nbsp;OS</span>
-      <span class="brand-sub">COMMAND</span>
+      <span class="logo">◆</span>
+      <div class="brand-txt">
+        <span class="brand-name">LIFE&nbsp;OS</span>
+        <span class="brand-sub">COMMAND&nbsp;CENTER</span>
+      </div>
     </div>
-    <div class="topbar-right">
-      <span class="live-badge"><span class="dot live"></span> LIVE</span>
-      <span id="clock" class="clock">--:--:--</span>
-      <span id="date" class="muted small"></span>
+    <nav class="nav">
+      <a class="nav-i active">Overview</a>
+      <a class="nav-i">Engines</a>
+      <a class="nav-i">Agents</a>
+      <a class="nav-i">Finance</a>
+    </nav>
+    <div class="status-strip">
+      <div class="chip"><span class="chip-k">ENGINES</span><span class="chip-v ok">3 / 3</span></div>
+      <div class="chip"><span class="chip-k">AGENTS</span><span class="chip-v">3 live</span></div>
+      <div class="chip"><span class="chip-k">SYNC</span><span class="chip-v"><span class="dot live"></span>real-time</span></div>
+      <div class="clock-box">
+        <span id="clock" class="clock">--:--:--</span>
+        <span id="date" class="date">— —</span>
+      </div>
     </div>
   </header>
 
   <main class="wall">
 
-    <!-- ===== PIPELINE / GLOBE (hero) ===== -->
+    <!-- ===== PIPELINE / GLOBE ===== -->
     <section class="panel globe-panel" data-drill="pipeline">
       <div class="panel-head">
-        <h2>Pipeline</h2>
-        <div class="carrier"><span class="muted small">primary engine</span>
-          <span class="carrier-badge">▦ KDP&nbsp;TOOL</span></div>
+        <div class="ph-l"><span class="accent cyan"></span><h2>Pipeline</h2>
+          <span class="live-tag"><span class="dot live"></span>LIVE</span></div>
+        <div class="carrier"><span class="lbl">PRIMARY&nbsp;ENGINE</span>
+          <span class="carrier-badge">◈ KDP&nbsp;TOOL</span></div>
       </div>
       <div class="globe-stage">
         <canvas id="globe"></canvas>
         <div class="route-list">
+          <span class="rl-title">ACTIVE&nbsp;ROUTES</span>
           <div class="route-line"><span class="pin live"></span>
-            <div><b>KDP · Amazon US</b><span class="muted small">live · auto-publishing</span></div></div>
-          <div class="route-conn"></div>
+            <div><b>KDP · Amazon US</b><span class="sub">auto-publishing</span></div>
+            <span class="rl-stat ok">LIVE</span></div>
           <div class="route-line"><span class="pin build"></span>
-            <div><b>YouTube · Global</b><span class="muted small">building pipeline</span></div></div>
-          <div class="route-conn"></div>
+            <div><b>YouTube · Global</b><span class="sub">building pipeline</span></div>
+            <span class="rl-stat warn">45%</span></div>
           <div class="route-line"><span class="pin queue"></span>
-            <div><b>Etsy · US / EU</b><span class="muted small">queued</span></div></div>
+            <div><b>Etsy · US / EU</b><span class="sub">queued</span></div>
+            <span class="rl-stat dim">SOON</span></div>
         </div>
         <div class="lead">
-          <span class="muted small">Latest payout lead time:</span>
-          <b class="lead-val">19 days</b>
+          <span class="lbl">PAYOUT&nbsp;LEAD&nbsp;TIME</span>
+          <div class="lead-val"><b data-count="19" data-suffix=" days">0</b>
+            <span class="delta down">▼ 12d</span></div>
           <canvas id="leadChart"></canvas>
         </div>
       </div>
-      <span class="wm">life&nbsp;os</span>
+      <span class="pidx">01</span>
     </section>
 
     <!-- ===== NEWS ===== -->
     <section class="panel news-panel" data-drill="news">
-      <div class="panel-head"><h2>News</h2><span class="src">HN · live</span></div>
+      <div class="panel-head">
+        <div class="ph-l"><span class="accent violet"></span><h2>News</h2></div>
+        <span class="src">HN · LIVE</span>
+      </div>
       <div class="news-hero">
-        <div class="news-photo" id="newsPhoto"><span class="ph-label">LIVE FEED IMAGE</span></div>
+        <div class="news-photo img-a"><span class="img-chip">SOURCE: HN</span>
+          <div class="img-scan"></div></div>
         <div class="news-hero-text">
-          <span class="kicker">TOP STORY</span>
+          <span class="kicker">▍TOP STORY</span>
           <h3>Solo builders are shipping products faster with agent workflows</h3>
-          <p class="muted small">One operator, a roster of AI agents — the new shape of a small company.</p>
+          <p class="sub">One operator, a roster of AI agents — the new shape of a small company.</p>
+          <span class="byline">techcrunch · 2h ago</span>
         </div>
       </div>
       <div class="filmstrip">
-        <div class="film"></div><div class="film"></div><div class="film"></div>
-        <div class="film"></div><div class="film"></div><div class="film"></div>
-        <div class="film"></div><div class="film"></div>
+        <div class="film img-b"><span class="film-pts">312</span></div>
+        <div class="film img-c"><span class="film-pts">204</span></div>
+        <div class="film img-a"><span class="film-pts">177</span></div>
+        <div class="film img-b"><span class="film-pts">140</span></div>
+        <div class="film img-c"><span class="film-pts">96</span></div>
+        <div class="film img-a"><span class="film-pts">88</span></div>
       </div>
-      <span class="wm">life&nbsp;os</span>
+      <span class="pidx">02</span>
+    </section>
+
+    <!-- ===== INCOME ===== -->
+    <section class="panel small-panel" data-drill="income">
+      <div class="panel-head">
+        <div class="ph-l"><span class="accent amber"></span><h2>Income</h2></div>
+        <span class="src">TO&nbsp;$100&nbsp;/&nbsp;DAY</span>
+      </div>
+      <div class="orders-body">
+        <div class="gauge" data-gauge="0" data-color="#fbbf24">
+          <canvas></canvas>
+          <div class="gauge-c"><b data-count="0" data-suffix="%">0</b><span class="lbl">of goal</span></div>
+        </div>
+        <div class="orders-side">
+          <div class="kv"><span class="lbl">Today</span><b class="mono">$<span data-count="0">0</span></b></div>
+          <div class="kv"><span class="lbl">7-day avg</span><b class="mono">$<span data-count="0">0</span></b></div>
+          <div class="kv"><span class="lbl">Goal</span><b class="mono amber">$100</b></div>
+          <div class="spark-row"><span class="lbl">30d</span><canvas class="mini-spark" id="incSpark"></canvas></div>
+        </div>
+      </div>
+      <span class="pidx">03</span>
+    </section>
+
+    <!-- ===== AUTOMATION ===== -->
+    <section class="panel prod-panel" data-drill="automation">
+      <div class="panel-head">
+        <div class="ph-l"><span class="accent emerald"></span><h2>Automation</h2>
+          <span class="live-tag"><span class="dot live"></span>ENGINES</span></div>
+        <span class="src">ALL&nbsp;SITES</span>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-row">
+          <div class="gauge sm" data-gauge="83" data-color="#34d399">
+            <canvas></canvas><div class="gauge-c"><b>83<small>%</small></b></div></div>
+          <div class="prod-bars">
+            <div class="pb-name">KDP&nbsp;TOOL <span class="pb-meta ok">● uptime 99%</span></div>
+            <div class="pb"><span>Cover gen</span><i data-w="92"></i><em>92</em></div>
+            <div class="pb"><span>Interior</span><i data-w="78"></i><em>78</em></div>
+            <div class="pb"><span>Publish</span><i data-w="88"></i><em>88</em></div>
+          </div>
+        </div>
+        <div class="prod-row">
+          <div class="gauge sm" data-gauge="45" data-color="#fbbf24">
+            <canvas></canvas><div class="gauge-c"><b>45<small>%</small></b></div></div>
+          <div class="prod-bars">
+            <div class="pb-name">YOUTUBE <span class="pb-meta warn">● building</span></div>
+            <div class="pb"><span>Script</span><i data-w="70"></i><em>70</em></div>
+            <div class="pb"><span>Render</span><i data-w="40"></i><em>40</em></div>
+            <div class="pb amber-bar"><span>Upload</span><i data-w="12"></i><em>12</em></div>
+          </div>
+        </div>
+        <div class="prod-row">
+          <div class="gauge sm" data-gauge="15" data-color="#fb7185">
+            <canvas></canvas><div class="gauge-c"><b>15<small>%</small></b></div></div>
+          <div class="prod-bars">
+            <div class="pb-name">ETSY <span class="pb-meta dim">● queued</span></div>
+            <div class="pb"><span>Listings</span><i data-w="20"></i><em>20</em></div>
+            <div class="pb"><span>Mockups</span><i data-w="15"></i><em>15</em></div>
+            <div class="pb"><span>Fulfill</span><i data-w="8"></i><em>8</em></div>
+          </div>
+        </div>
+      </div>
+      <span class="pidx">04</span>
+    </section>
+
+    <!-- ===== OUTPUT ===== -->
+    <section class="panel out-panel" data-drill="output">
+      <div class="panel-head">
+        <div class="ph-l"><span class="accent indigo"></span><h2>Output</h2></div>
+        <span class="src">LAST&nbsp;30&nbsp;DAYS</span>
+      </div>
+      <div class="out-body">
+        <div class="out-hero">
+          <div class="out-num"><b class="mono" data-count="1240">0</b>
+            <span class="lbl">units shipped</span>
+            <span class="delta up">▲ 18%</span></div>
+          <div class="out-num alt"><b class="mono rose" data-count="312">0</b>
+            <span class="lbl">in pipeline</span></div>
+        </div>
+        <canvas id="outChart"></canvas>
+      </div>
+      <span class="pidx">05</span>
     </section>
 
     <!-- ===== ISSUES ===== -->
     <section class="panel issues-panel" data-drill="issues">
-      <div class="panel-head"><h2>Issues</h2><span class="badge warn">1 comment</span></div>
+      <div class="panel-head">
+        <div class="ph-l"><span class="accent rose"></span><h2>Issues</h2></div>
+        <span class="badge warn">1&nbsp;ACTION</span>
+      </div>
       <div class="issue-card">
-        <div class="issue-flag">●&nbsp;IN&nbsp;PROGRESS</div>
+        <div class="issue-flag">◗ IN&nbsp;PROGRESS</div>
         <h3>YouTube upload agent paused — blocked on API key</h3>
-        <p class="muted small label">Description</p>
-        <p class="small">Pipeline agent halted before render-upload. Add <code>YT_API_KEY</code>
-          in Vercel project settings to resume autonomous publishing.</p>
+        <p class="lbl">DESCRIPTION</p>
+        <p class="issue-desc">Pipeline agent halted before render-upload. Add
+          <code>YT_API_KEY</code> in Vercel to resume autonomous publishing.</p>
         <div class="issue-stats">
-          <div><span class="is-ico">▦</span><b>3</b><span class="muted small">Agents</span></div>
-          <div><span class="is-ico">◷</span><b>2</b><span class="muted small">Tasks</span></div>
-          <div><span class="is-ico">⚑</span><b class="rose">1</b><span class="muted small">Blocked</span></div>
+          <div><span class="is-ico">◈</span><b class="mono">3</b><span class="lbl">Agents</span></div>
+          <div><span class="is-ico">◷</span><b class="mono">2</b><span class="lbl">Tasks</span></div>
+          <div><span class="is-ico">⚑</span><b class="mono rose">1</b><span class="lbl">Blocked</span></div>
         </div>
-        <div class="assignee"><span class="muted small">Latest update from</span>
-          <span class="ava"></span><b class="small">Pipeline Agent · 4 min ago</b></div>
+        <div class="assignee"><span class="ava"></span>
+          <div><b>Pipeline Agent</b><span class="sub">updated 4 min ago</span></div></div>
       </div>
-      <span class="wm">life&nbsp;os</span>
-    </section>
-
-    <!-- ===== INCOME (orders) ===== -->
-    <section class="panel small-panel" data-drill="income">
-      <div class="panel-head"><h2>Income</h2><span class="src">to $100 / day</span></div>
-      <div class="orders-body">
-        <div class="donut" style="--pct:0;--c:var(--amber)">
-          <div class="donut-c"><b>0%</b><span class="muted small">of goal</span></div>
-        </div>
-        <div class="orders-side">
-          <div class="kv"><span class="muted small">Today</span><b>$0</b></div>
-          <div class="kv"><span class="muted small">7-day avg</span><b>$0</b></div>
-          <div class="kv"><span class="muted small">Goal</span><b class="amber">$100</b></div>
-        </div>
-      </div>
-      <span class="wm">life&nbsp;os</span>
-    </section>
-
-    <!-- ===== AUTOMATION (production) ===== -->
-    <section class="panel prod-panel" data-drill="automation">
-      <div class="panel-head"><h2>Automation</h2><span class="src">all engines</span></div>
-      <div class="prod-grid">
-        <div class="prod-row">
-          <div class="donut sm" style="--pct:83;--c:var(--emerald)"><div class="donut-c"><b>83%</b></div></div>
-          <div class="prod-bars">
-            <div class="pb-name">KDP&nbsp;TOOL <span class="muted small">· uptime 99%</span></div>
-            <div class="pb"><span>Cover gen</span><i style="width:92%"></i><em>92%</em></div>
-            <div class="pb"><span>Interior</span><i style="width:78%"></i><em>78%</em></div>
-            <div class="pb"><span>Publish</span><i style="width:88%"></i><em>88%</em></div>
-          </div>
-        </div>
-        <div class="prod-row">
-          <div class="donut sm" style="--pct:45;--c:var(--amber)"><div class="donut-c"><b>45%</b></div></div>
-          <div class="prod-bars">
-            <div class="pb-name">YOUTUBE <span class="muted small">· building</span></div>
-            <div class="pb"><span>Script</span><i style="width:70%"></i><em>70%</em></div>
-            <div class="pb"><span>Render</span><i style="width:40%"></i><em>40%</em></div>
-            <div class="pb amber-bar"><span>Upload</span><i style="width:12%"></i><em>12%</em></div>
-          </div>
-        </div>
-        <div class="prod-row">
-          <div class="donut sm" style="--pct:15;--c:var(--rose)"><div class="donut-c"><b>15%</b></div></div>
-          <div class="prod-bars">
-            <div class="pb-name">ETSY <span class="muted small">· queued</span></div>
-            <div class="pb"><span>Listings</span><i style="width:20%"></i><em>20%</em></div>
-            <div class="pb"><span>Mockups</span><i style="width:15%"></i><em>15%</em></div>
-            <div class="pb"><span>Fulfill</span><i style="width:8%"></i><em>8%</em></div>
-          </div>
-        </div>
-      </div>
-      <span class="wm">life&nbsp;os</span>
-    </section>
-
-    <!-- ===== OUTPUT (deliveries) ===== -->
-    <section class="panel out-panel" data-drill="output">
-      <div class="panel-head"><h2>Output</h2><span class="src">last 30 days</span></div>
-      <div class="out-body">
-        <div class="out-hero">
-          <div class="out-thumb"><span class="ph-label">ASSET</span></div>
-          <div class="out-num"><b>1,240</b><span class="muted small">total units shipped</span>
-            <b class="rose mt">312 <span class="muted small">pending</span></b></div>
-        </div>
-        <canvas id="outChart"></canvas>
-      </div>
-      <span class="wm">life&nbsp;os</span>
+      <span class="pidx">06</span>
     </section>
 
   </main>
+
+  <!-- ===== STATUS TICKER ===== -->
+  <footer class="ticker">
+    <div class="ticker-tag">SYSTEM</div>
+    <div class="ticker-track"><div class="ticker-run" id="tickerRun"></div></div>
+  </footer>
 
   <!-- drill-down drawer -->
   <div id="drawer" class="drawer">
     <div class="drawer-inner">
       <button id="drawer-close" class="drawer-close">✕</button>
+      <span class="lbl" id="drawer-kicker">PANEL</span>
       <h2 id="drawer-title">Tile</h2>
-      <p class="muted" id="drawer-body"></p>
+      <p id="drawer-body"></p>
     </div>
   </div>
 

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life OS — Command Center</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ===== TOP BAR ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⬡</span>
+      <span class="brand-name">LIFE OS</span>
+      <span class="brand-sub">COMMAND</span>
+    </div>
+    <div class="topbar-mid">
+      <span class="muted">primary engine</span>
+      <span class="pill"><span class="dot live"></span> KDP TOOL</span>
+    </div>
+    <div class="topbar-right">
+      <span class="live-badge"><span class="dot live"></span> LIVE</span>
+      <span id="clock" class="clock">--:--:--</span>
+      <span id="date" class="muted"></span>
+    </div>
+  </header>
+
+  <!-- ===== GRID ===== -->
+  <main class="wall">
+
+    <!-- HERO: AUTOMATION PIPELINE -->
+    <section class="tile hero" data-drill="pipeline">
+      <div class="tile-head">
+        <h2>Pipeline</h2>
+        <span class="src">engine: passive income</span>
+      </div>
+      <div class="hero-body">
+        <div class="orbit">
+          <div class="orbit-ring r1"></div>
+          <div class="orbit-ring r2"></div>
+          <div class="orbit-ring r3"></div>
+          <div class="orbit-core">
+            <span class="core-val">$0</span>
+            <span class="core-label">/ day</span>
+          </div>
+          <div class="orbit-node n1"><span class="nd live"></span>KDP</div>
+          <div class="orbit-node n2"><span class="nd build"></span>YouTube</div>
+          <div class="orbit-node n3"><span class="nd queue"></span>Etsy</div>
+        </div>
+        <div class="hero-side">
+          <div class="kv"><span class="muted">North star</span><b>$100 / day</b></div>
+          <div class="kv"><span class="muted">Live stages</span><b>1 of 3</b></div>
+          <div class="kv"><span class="muted">Lead time to first payout</span><b class="accent">19 days</b></div>
+          <div class="trend">
+            <span class="muted small">Revenue trend · last 6 wks</span>
+            <svg viewBox="0 0 280 70" class="spark" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6366f1" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,60 L46,58 L93,54 L140,50 L186,38 L233,30 L280,18"
+                    fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
+              <path d="M0,60 L46,58 L93,54 L140,50 L186,38 L233,30 L280,18 L280,70 L0,70 Z"
+                    fill="url(#g1)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section class="tile news" data-drill="news">
+      <div class="tile-head"><h2>News</h2><span class="src">HN · live</span></div>
+      <div class="news-feat">
+        <div class="news-feat-tag">TOP STORY</div>
+        <h3>Solo founders shipping faster with agent workflows</h3>
+        <p class="muted small">Placeholder — wires to your existing HN Algolia feed.</p>
+      </div>
+      <ul class="news-list">
+        <li><span class="pts">312</span> Show HN: I automated my entire KDP pipeline</li>
+        <li><span class="pts">204</span> The economics of faceless YouTube channels</li>
+        <li><span class="pts">177</span> Etsy print-on-demand: what actually sells</li>
+        <li><span class="pts">88</span> Vanilla JS is having a moment</li>
+      </ul>
+    </section>
+
+    <!-- ISSUES / AGENT QUEUE -->
+    <section class="tile issues" data-drill="issues">
+      <div class="tile-head"><h2>Issues</h2><span class="badge warn">1 needs you</span></div>
+      <div class="issue-main">
+        <div class="issue-title">YouTube upload agent — blocked on API key</div>
+        <p class="muted small">Agent paused. Add <code>YT_API_KEY</code> in Vercel to resume.</p>
+      </div>
+      <div class="issue-stats">
+        <div><b>3</b><span class="muted">Agents</span></div>
+        <div><b>2</b><span class="muted">Tasks</span></div>
+        <div><b class="accent-rose">1</b><span class="muted">Blocked</span></div>
+      </div>
+      <div class="issue-foot muted small">Last update · Pipeline agent · 4 min ago</div>
+    </section>
+
+    <!-- BOTTOM ROW: INCOME -->
+    <section class="tile metric" data-drill="income">
+      <div class="tile-head"><h2>Income</h2><span class="src">to $100/day</span></div>
+      <div class="metric-body">
+        <div class="ring" style="--pct:0deg;">
+          <div class="ring-val">0%</div>
+        </div>
+        <div class="metric-kv">
+          <div><b>$0</b><span class="muted">today</span></div>
+          <div><b>$100</b><span class="muted">goal</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM ROW: HABITS -->
+    <section class="tile metric" data-drill="habits">
+      <div class="tile-head"><h2>Habits</h2><span class="src">today</span></div>
+      <div class="metric-body">
+        <div class="ring emerald" style="--pct:216deg;">
+          <div class="ring-val">60%</div>
+        </div>
+        <div class="metric-kv">
+          <div><b>3</b><span class="muted">done</span></div>
+          <div><b>5</b><span class="muted">total</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOTTOM ROW: MILESTONES -->
+    <section class="tile metric wide" data-drill="milestones">
+      <div class="tile-head"><h2>Milestones</h2><span class="src">progress</span></div>
+      <div class="bars">
+        <div class="bar"><span class="bl">KDP launch</span><span class="bt"><i style="width:100%"></i></span><span class="bp">100%</span></div>
+        <div class="bar"><span class="bl">YouTube MVP</span><span class="bt"><i style="width:45%"></i></span><span class="bp">45%</span></div>
+        <div class="bar"><span class="bl">Etsy store</span><span class="bt"><i style="width:15%"></i></span><span class="bp">15%</span></div>
+        <div class="bar"><span class="bl">Baby prep</span><span class="bt"><i style="width:30%"></i></span><span class="bp">30%</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- DRILL-DOWN DRAWER (interactive cockpit stub) -->
+  <div id="drawer" class="drawer">
+    <div class="drawer-inner">
+      <button id="drawer-close" class="drawer-close">✕</button>
+      <h2 id="drawer-title">Tile</h2>
+      <p class="muted" id="drawer-body">Drill-down view. This is where real data + agent
+        controls land once we wire this tile up.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

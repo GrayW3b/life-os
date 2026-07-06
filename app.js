@@ -904,6 +904,7 @@ function navigate(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + page)?.classList.add('active');
   document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.page === page));
+  document.querySelectorAll('.tab-link').forEach(l => l.classList.toggle('active', l.dataset.page === page));
   history.replaceState(null, '', '#' + page);
 
   switch (page) {
@@ -936,6 +937,9 @@ document.querySelectorAll('.nav-link').forEach(l =>
 document.querySelectorAll('.pillar[data-page]').forEach(p =>
   p.addEventListener('click', () => navigate(p.dataset.page)));
 
+document.querySelectorAll('.tab-link').forEach(t =>
+  t.addEventListener('click', () => navigate(t.dataset.page)));
+
 // ── Mobile sidebar ────────────────────────────────────────
 const sidebar = document.getElementById('sidebar');
 const scrim   = document.getElementById('scrim');
@@ -948,3 +952,14 @@ tick();
 setInterval(tick, 60_000);
 const start = PAGES.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home';
 navigate(start);
+
+// Home-screen shortcuts (manifest) relaunch with a new hash — follow it
+window.addEventListener('hashchange', () => {
+  const page = location.hash.slice(1);
+  if (PAGES.includes(page)) navigate(page);
+});
+
+// Service worker — offline shell + installable PWA (https only, skips file://)
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}

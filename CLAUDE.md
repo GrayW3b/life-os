@@ -16,6 +16,9 @@ Plain HTML / CSS / vanilla JS — no framework, no build step. State in localSto
 | `app.js` | All frontend logic, routing, data |
 | `api/chat.js` | Vercel serverless — Groq AI persona chat |
 | `api/feed.js` | Vercel serverless — structured briefings (not called by frontend yet) |
+| `manifest.json` | PWA manifest — standalone display, icons, long-press shortcuts |
+| `sw.js` | Service worker — network-first with offline shell fallback |
+| `icons/` | App icons (180 apple-touch, 192/512 manifest, 512 maskable) |
 
 ---
 
@@ -115,3 +118,4 @@ Stores: `habitsList`, `habitsDone`, `habitsDate`, `milestones`, `chats`, `news`,
 - **No Tailwind, no React** — intentional, keeps it simple for a beginner
 - **HN only for news** — other sources tried and rejected (see above)
 - **PDF generation is client-side** — uses pdf-lib CDN, no server timeout issues
+- **iPhone / PWA:** installable via Safari → Share → Add to Home Screen (standalone, no browser chrome). Bottom tab bar replaces sidebar at ≤700px. Safe-area insets via `--sat`/`--sab`. Inputs are 16px on phones (iOS auto-zoom). Service worker is network-first, so deploys are never stale — bump `CACHE` in `sw.js` only if its fetch logic changes

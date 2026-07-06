@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Life OS — Grayson</title>
   <meta name="theme-color" content="#0d0f1a">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.json">
+  <!-- iOS: full-screen standalone app when added to home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Life OS">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -370,6 +378,17 @@
 
   </div><!-- /content -->
 </div><!-- /app -->
+
+<!-- ── Bottom tab bar (phones only) ── -->
+<nav class="tabbar" id="tabbar" aria-label="Primary">
+  <button class="tab-link active" data-page="home"><span class="tab-ic">🏠</span><span class="tab-label">Home</span></button>
+  <button class="tab-link" data-page="income"  style="--nl:#f59e0b"><span class="tab-ic">💰</span><span class="tab-label">Income</span></button>
+  <button class="tab-link" data-page="health"  style="--nl:#10b981"><span class="tab-ic">💪</span><span class="tab-label">Health</span></button>
+  <button class="tab-link" data-page="markets" style="--nl:#3b82f6"><span class="tab-ic">📈</span><span class="tab-label">Markets</span></button>
+  <button class="tab-link" data-page="code"    style="--nl:#8b5cf6"><span class="tab-ic">⌨️</span><span class="tab-label">Code</span></button>
+  <button class="tab-link" data-page="growth"  style="--nl:#f43f5e"><span class="tab-ic">🌱</span><span class="tab-label">Growth</span></button>
+  <button class="tab-link" data-page="tools"   style="--nl:#0ea5e9"><span class="tab-ic">🔧</span><span class="tab-label">Tools</span></button>
+</nav>
 
 <div id="toast-stack" class="toast-stack"></div>
 <script src="app.js"></script>
